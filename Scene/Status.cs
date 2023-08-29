@@ -6,7 +6,16 @@ using System.Threading.Tasks;
 
 namespace TextRPGing.Scene
 {
-    internal class Status
+    public class Status : Define.Interface.IScene
     {
+        public void ActByInput(int input)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void MainLoop()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
