@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace TextRPGing.Controller
 {
-    internal class EquipController
+    public class EquipController
     {
+        public virtual void EquipItem(Item item)
+        {
 
+        }
     }
 }

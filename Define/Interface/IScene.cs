@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace TextRPGing.Define.Interface
 {
-    internal interface IScene
+    public interface IScene
     {
-
+        public void MainLoop();
+        public void ActByInput(int input);
     }
 }
