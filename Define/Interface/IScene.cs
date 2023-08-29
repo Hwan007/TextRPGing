@@ -9,6 +9,6 @@ namespace TextRPGing.Define.Interface
     public interface IScene
     {
         public void MainLoop();
-        public void ActByInput(int input);
+        public bool ActByInput(int input);
     }
 }

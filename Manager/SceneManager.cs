@@ -20,7 +20,11 @@ namespace TextRPGing.Manager
                 instance = this;
             mCurrentScene = Define.GameEnum.eSceneType.Main;
         }
-        public void ActByInput(int input)
+        public bool ActByInput(int input)
+        {
+            return false;
+        }
+        public void MainLoop()
         {
 
         }
