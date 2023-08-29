@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TextRPGing.Define.Interface;
+using TextRPGing.Controller;
 
 namespace TextRPGing.Model
 {
-    internal class Monster : IBattleStat
+    public class Monster : MonsterController, IBattleStat
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -19,5 +20,10 @@ namespace TextRPGing.Model
         public float AVD { get; set; }
         public int RewardExp { get; set; }
         public int RewardGold { get; set; }
+
+        public override void TakeDamage(int damage)
+        {
+            HP -= (int)((damage - DEF) * AVD);
+        }
     }
 }

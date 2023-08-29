@@ -8,7 +8,7 @@ namespace TextRPGing.Utils
 {
     public class MessageToUI
     {
-        public Define.GameEnum.eSceneType Type { get; set; };
-        public string[] COut { get; set; };
+        public Define.GameEnum.eSceneType Type { get; set; }
+        public string[] COut { get; set; }
     }
 }
