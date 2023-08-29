@@ -8,14 +8,14 @@ namespace TextRPGing.Scene
 {
     public class Status : Define.Interface.IScene
     {
-        public void ActByInput(int input)
+        public bool ActByInput(int input)
         {
-            throw new NotImplementedException();
+            return false;
         }
 
         public void MainLoop()
         {
-            throw new NotImplementedException();
+            
         }
     }
 }
