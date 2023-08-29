@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TextRPGing.Controller;
+using TextRPGing.Define.Interface;
 
 namespace TextRPGing.Model
 {
-    internal class Character : CharacterController
+    public class Character : CharacterController, IBattleStat
     {
         public int Id { get; set; }
         public string Name { get; set; }

@@ -8,5 +8,15 @@ namespace TextRPGing.Model
 {
     internal class Monster
     {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public int HP { get; set; }
+        public int MaxHP { get; set; }
+        public int ATK { get; set; }
+        public int DEF { get; set; }
+        public float CRT { get; set; }
+        public float AVD { get; set; }
+        public int RewardExp { get; set; }
+        public int RewardGold { get; set; }
     }
 }
