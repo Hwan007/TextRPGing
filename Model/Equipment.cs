@@ -28,10 +28,10 @@ namespace TextRPGing.Model
                 UnEquipType(item.type);
                 switch (item.type)
                 {
-                    case Define.Enum.eItemType.Armor:
+                    case Define.GameEnum.eItemType.Armor:
                         Items.Add(item);
                         break;
-                    case Define.Enum.eItemType.Weapon:
+                    case Define.GameEnum.eItemType.Weapon:
                         Items.Add(item);
                         break;
                     default:
@@ -41,7 +41,7 @@ namespace TextRPGing.Model
             }
         }
 
-        private void UnEquipType(Define.Enum.eItemType type)
+        private void UnEquipType(Define.GameEnum.eItemType type)
         {
             foreach (var item in Items)
             {
