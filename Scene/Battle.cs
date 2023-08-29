@@ -8,5 +8,16 @@ namespace TextRPGing.Scene
 {
     internal class Battle
     {
+
+        Define.Enum.eSceneType type = Define.Enum.eSceneType.Battle;
+        public void MainLoop()
+        {
+
+        }
+
+        public void ActByInput(int Input)
+        {
+
+        }
     }
 }

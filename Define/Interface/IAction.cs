@@ -8,5 +8,13 @@ namespace TextRPGing.Define.Interface
 {
     public class IAction
     {
+        public string Name { get; set; }
+        public ActionResult? result { get; set; }
+
+    }
+
+    public class ActionResult : IAction
+    {
+
     }
 }
