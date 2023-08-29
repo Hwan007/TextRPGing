@@ -8,7 +8,7 @@ using TextRPGing.Define.Interface;
 
 namespace TextRPGing.Model
 {
-    internal class Character : CharacterController, IBattleStat
+    public class Character : CharacterController, IBattleStat
     {
         public int Id { get; set; }
         public string Name { get; set; }

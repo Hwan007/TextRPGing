@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TextRPGing.Controller
 {
-    internal class MonsterController
+    public class MonsterController
     {
         public void TakeDamage(int damage)
         {

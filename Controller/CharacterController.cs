@@ -7,7 +7,7 @@ using TextRPGing.Define.Interface;
 
 namespace TextRPGing.Controller
 {
-    internal class CharacterController : IAction
+    public class CharacterController : IAction
     {
         public void ReStat()
         {

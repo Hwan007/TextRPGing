@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TextRPGing.Define.Interface
 {
-    internal interface IBattleStat
+    public interface IBattleStat
     {
         string Name { get; }
         int HP { get; }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TextRPGing.Define.Interface
 {
-    internal class IAction
+    public class IAction
     {
     }
 }
