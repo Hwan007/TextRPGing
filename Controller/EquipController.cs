@@ -12,9 +12,5 @@ namespace TextRPGing.Controller
         {
 
         }
-        public virtual void UnEquipItem(int index)
-        {
-
-        }
     }
 }
