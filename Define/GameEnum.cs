@@ -7,7 +7,9 @@
             Status,
             Battle,
             Recovery,
-            SaveLoad
+            SaveLoad,
+            Main,
+            End
         }
 
 

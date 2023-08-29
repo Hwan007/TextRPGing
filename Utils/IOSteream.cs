@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TextRPGing.Utils
 {
-    public interface IOSteream
+    public class IOSteream
     {
     }
 }
