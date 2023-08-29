@@ -6,7 +6,21 @@ using System.Threading.Tasks;
 
 namespace TextRPGing.Manager
 {
-    internal class SceneManager
+    public class SceneManager
     {
+        public void ActByInput(int input)
+        {
+
+        }
+
+        public void ChangeScene(Define.Enum.eSceneType sceneType)
+        {
+
+        }
+
+        public Define.Enum.eSceneType[] GetEnableScene()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
