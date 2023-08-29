@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TextRPGing.Controller
+namespace TextRPGing.Model
 {
-    internal class CharacterController
+    internal class Equipment
     {
-
     }
 }
