@@ -6,17 +6,16 @@ using System.Threading.Tasks;
 
 namespace TextRPGing.Scene
 {
-    internal class Status
+    public class Status : Define.Interface.IScene
     {
-        Define.Enum.eSceneType type = Define.Enum.eSceneType.Status;
-        public void MainLoop()
+        public void ActByInput(int input)
         {
-
+            throw new NotImplementedException();
         }
 
-        public void ActByInput(int Input)
+        public void MainLoop()
         {
-
+            throw new NotImplementedException();
         }
     }
 }
