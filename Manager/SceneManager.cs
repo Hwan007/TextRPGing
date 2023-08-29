@@ -13,12 +13,12 @@ namespace TextRPGing.Manager
 
         }
 
-        public void ChangeScene(Define.Enum.eSceneType sceneType)
+        public void ChangeScene(Define.GameEnum.eSceneType sceneType)
         {
 
         }
 
-        public Define.Enum.eSceneType[] GetEnableScene()
+        public Define.GameEnum.eSceneType[] GetEnableScene()
         {
             throw new NotImplementedException();
         }

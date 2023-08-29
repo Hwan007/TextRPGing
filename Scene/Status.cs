@@ -8,5 +8,15 @@ namespace TextRPGing.Scene
 {
     internal class Status
     {
+        Define.Enum.eSceneType type = Define.Enum.eSceneType.Status;
+        public void MainLoop()
+        {
+
+        }
+
+        public void ActByInput(int Input)
+        {
+
+        }
     }
 }
