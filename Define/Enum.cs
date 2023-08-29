@@ -1,6 +1,6 @@
 ﻿namespace TextRPGing.Define
 {
-    public class Enum
+    public class GameEnum
     {
         public enum eSceneType
         {
