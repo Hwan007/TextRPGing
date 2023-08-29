@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace TextRPGing.Scene
 {
-    internal class Battle
+    internal class Status
     {
-
-        Define.Enum.eSceneType type = Define.Enum.eSceneType.Battle;
+        Define.Enum.eSceneType type = Define.Enum.eSceneType.Status;
         public void MainLoop()
         {
 
