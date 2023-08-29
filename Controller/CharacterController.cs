@@ -7,22 +7,17 @@ using TextRPGing.Define.Interface;
 
 namespace TextRPGing.Controller
 {
-    public class CharacterController : IAction
+    public abstract class CharacterController
     {
-        public void ReStat()
-        {
-            //캐릭터 스탯 재계산
-        }
+        public abstract void ReStat();
+        //캐릭터 스탯 재계산
 
-        public void TakeDamage(int damage)
-        {
-            //받은 데미지 계산
-        }
+        public abstract void TakeDamage(int damage);
+        //받은 데미지 계산           
 
-        public void TakeHeal(int heal)
-        {
+        public abstract void TakeHeal(int heal);
             //체력 회복
-        }
+
         public IAction[] GetEnableAction()
         {
             return new IAction[] { };
