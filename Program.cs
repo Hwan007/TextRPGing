@@ -1,4 +1,5 @@
 ﻿using System;
+using TextRPGing.Manager;
 
 namespace TextRPGing
 {
@@ -6,8 +7,8 @@ namespace TextRPGing
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
-            // 김진성 branch
+            GameManager gameManager = new GameManager();
+            gameManager.GameStart();
         }
     }
 }
