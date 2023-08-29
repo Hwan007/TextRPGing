@@ -29,5 +29,22 @@ namespace TextRPGing.Model
         Inventory Inven { get; set; }
         Equipment Equip { get; set; }
 
+        public override void ReStat()
+        {
+            
+        }
+
+        public override void TakeDamage(int  damage)
+        {
+            HP -= (int)((damage - DEF) * AVD); //임의로 데미지 계산 식 만들어놨습니다. 마음껏 변경하셔도 됩니다.
+        }
+
+        public override void TakeHeal(int heal)
+        {
+            HP += heal;
+            if (HP > MaxHP)
+                HP = MaxHP;
+        }
+
     }
 }

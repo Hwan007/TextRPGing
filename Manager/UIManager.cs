@@ -9,7 +9,7 @@ namespace TextRPGing.Manager
 {
     public class UIManager
     {
-        private Queue<string> _messages = new Queue<string>();
+        private Queue<string> _messages ;
 
 
         public void DisplayUpdate(Queue<string> messages)
@@ -22,13 +22,18 @@ namespace TextRPGing.Manager
             if (message == null)
                 return;
 
+            string[] cOut = message.COut;
 
-            _messages.Enqueue();
+            if (cOut.Length == 0) 
+                return;
+
+            foreach (string c in cOut)
+                _messages.Enqueue(c);
         }
 
         public void DisplayClear()
         {
-            _messages.Clear();
+
         }
 
     }

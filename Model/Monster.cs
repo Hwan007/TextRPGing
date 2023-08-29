@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TextRPGing.Define.Interface;
 
 namespace TextRPGing.Model
 {
-    internal class Monster
+    internal class Monster : IBattleStat
     {
         public int Id { get; set; }
         public string Name { get; set; }

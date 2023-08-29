@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TextRPGing.Define.Interface
 {
-    public class IAction
+    public interface IAction
     {
         public string Name { get; set; }
         public ActionResult? result { get; set; }
