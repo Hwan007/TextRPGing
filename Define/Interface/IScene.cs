@@ -6,15 +6,9 @@ using System.Threading.Tasks;
 
 namespace TextRPGing.Define.Interface
 {
-    public class IAction
+    public interface IScene
     {
-        public string Name { get; set; }
-        public ActionResult? result { get; set; }
-
-    }
-
-    public class ActionResult : IAction
-    {
-
+        public void MainLoop();
+        public void ActByInput(int input);
     }
 }

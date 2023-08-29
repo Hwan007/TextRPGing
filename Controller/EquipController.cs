@@ -4,11 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TextRPGing.Define.Interface
+namespace TextRPGing.Controller
 {
-    public interface IBattleStat
+    public class EquipController
     {
-        string Name { get; }
-        int HP { get; }
+        public virtual void EquipItem(Item item)
+        {
+
+        }
     }
 }

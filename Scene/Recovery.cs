@@ -4,11 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TextRPGing.Define.Interface
+namespace TextRPGing.Scene
 {
-    public interface IBattleStat
+    internal class Recovery
     {
-        string Name { get; }
-        int HP { get; }
     }
 }

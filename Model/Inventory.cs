@@ -4,11 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TextRPGing.Define.Interface
+namespace TextRPGing.Model
 {
-    public interface IBattleStat
+    internal class Inventory
     {
-        string Name { get; }
-        int HP { get; }
     }
 }
