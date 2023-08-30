@@ -1,17 +1,26 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TextRPGing.Utils;
 
 namespace TextRPGing.Manager
 {
     public class GameManager
     {
+        private static GameManager s_instance;
+
+        public static GameManager GetInstance()
+        {
+            if (s_instance == null)
+            {
+                s_instance = new GameManager();
+            }
+            return s_instance;
+        }
+
         private SceneManager _sceneManager = new SceneManager();
         private UIManager _uiManager = new UIManager();
+
+        public static UIManager UIManager { get { return GetInstance()._uiManager; } }
+        public static SceneManager SceneManager { get { return GetInstance()._sceneManager; } }
 
         public void GameStart()
         {
