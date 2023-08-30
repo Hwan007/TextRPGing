@@ -20,15 +20,8 @@ namespace TextRPGing.Model
         public int DEF { get; set; }
         public float CRT { get; set; }
         public float AVD { get; set; }
-        enum characterClass
-        {
-            Warrior,
-            Thief,
-            Archer,
-            Magician
-        }
-        Inventory Inven { get; set; }
-        Equipment Equip { get; set; }
+        public Inventory Inven { get; set; }
+        public Equipment Equip { get; set; }
 
         public override void ReStat()
         {
