@@ -56,6 +56,7 @@ namespace TextRPGing.Scene
             else if (healingState == HealingState.isOut)
             {
                 GameManager.SceneManager.ChangeScene((Define.GameEnum.eSceneType)input);
+                return true;
             }
             return false;
         }
@@ -98,7 +99,7 @@ namespace TextRPGing.Scene
                 index++;
             }
             message += "\r\n" +
-                       "이동하고 싶은 곳을 입력해주세요.\r\n" +
+                       "원하는 행동을 입력해주세요.\r\n" +
                        ">> ";
             MessageToUIManager(message);
 
