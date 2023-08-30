@@ -10,12 +10,13 @@ namespace TextRPGing.Scene
     {
         public bool ActByInput(int input)
         {
-            throw new NotImplementedException();
+
+            return false;
         }
 
         public void MainLoop()
         {
-            throw new NotImplementedException();
+            
         }
     }
 }

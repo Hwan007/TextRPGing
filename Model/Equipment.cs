@@ -25,8 +25,8 @@ namespace TextRPGing.Model
             }
             else
             {
-                UnEquipType(item.type);
-                switch (item.type)
+                UnEquipType(item.Type);
+                switch (item.Type)
                 {
                     case Define.GameEnum.eItemType.Armor:
                         Items.Add(item);
@@ -35,7 +35,7 @@ namespace TextRPGing.Model
                         Items.Add(item);
                         break;
                     default:
-                        throw new Exception($"{item.type} 잘못된 정보입니다.");
+                        throw new Exception($"{item.Type} 잘못된 정보입니다.");
                 }
                 mCharacter.ReStat();
             }
@@ -45,7 +45,7 @@ namespace TextRPGing.Model
         {
             foreach (var item in Items)
             {
-                if (item.type == type)
+                if (item.Type == type)
                 {
                     Items.Remove(item);
                 }

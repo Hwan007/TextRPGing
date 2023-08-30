@@ -8,7 +8,7 @@ namespace TextRPGing.Controller
 {
     public class EquipController
     {
-        public virtual void EquipItem(Item item)
+        public virtual void EquipItem(Model.Item item)
         {
 
         }
