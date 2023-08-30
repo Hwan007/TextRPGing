@@ -18,7 +18,7 @@ namespace TextRPGing.Manager
             MapSetting();
             if (instance == null)
                 instance = this;
-            mCurrentScene = Define.GameEnum.eSceneType.Main;
+            mCurrentScene = Define.GameEnum.eSceneType.Town;
         }
         public bool ActByInput(int input)
         {
@@ -55,25 +55,25 @@ namespace TextRPGing.Manager
                 switch ((Define.GameEnum.eSceneType)i)
                 {
                     case Define.GameEnum.eSceneType.Status:
-                        mRoadMap[i, (int)Define.GameEnum.eSceneType.Main] = 1;
+                        mRoadMap[i, (int)Define.GameEnum.eSceneType.Town] = 1;
                         break;
                     case Define.GameEnum.eSceneType.Battle:
-                        mRoadMap[i, (int)Define.GameEnum.eSceneType.Main] = 1;
+                        mRoadMap[i, (int)Define.GameEnum.eSceneType.Town] = 1;
                         break;
                     case Define.GameEnum.eSceneType.Recovery:
-                        mRoadMap[i, (int)Define.GameEnum.eSceneType.Main] = 1;
+                        mRoadMap[i, (int)Define.GameEnum.eSceneType.Town] = 1;
                         break;
                     case Define.GameEnum.eSceneType.SaveLoad:
-                        mRoadMap[i, (int)Define.GameEnum.eSceneType.Main] = 1;
+                        mRoadMap[i, (int)Define.GameEnum.eSceneType.Town] = 1;
                         break;
-                    case Define.GameEnum.eSceneType.Main:
+                    case Define.GameEnum.eSceneType.Town:
                         mRoadMap[i, (int)Define.GameEnum.eSceneType.Battle] = 1;
                         mRoadMap[i, (int)Define.GameEnum.eSceneType.Recovery] = 1;
                         mRoadMap[i, (int)Define.GameEnum.eSceneType.SaveLoad] = 1;
-                        mRoadMap[i, (int)Define.GameEnum.eSceneType.Main] = 1;
+                        mRoadMap[i, (int)Define.GameEnum.eSceneType.Town] = 1;
                         break;
                     case Define.GameEnum.eSceneType.End:
-                        mRoadMap[i, (int)Define.GameEnum.eSceneType.Main] = 1;
+                        mRoadMap[i, (int)Define.GameEnum.eSceneType.Town] = 1;
                         break;
                     default:
                         break;

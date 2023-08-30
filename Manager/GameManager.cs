@@ -62,7 +62,7 @@ namespace TextRPGing.Manager
         private void MessageToUIManager(string message)
         {
             MessageToUI messageToUi = new MessageToUI(
-                Define.GameEnum.eSceneType.Main,
+                Define.GameEnum.eSceneType.Town,
                 new string[] { message }
             );
 
