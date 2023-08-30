@@ -27,8 +27,8 @@ namespace TextRPGing.Model
             Archer,
             Magician
         }
-        Inventory Inven { get; set; }
-        Equipment Equip { get; set; }
+        public Inventory Inven { get; set; }
+        public Equipment Equip { get; set; }
 
         public override void ReStat()
         {
