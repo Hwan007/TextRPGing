@@ -29,23 +29,44 @@ namespace TextRPGing.Scene
             List<string> sbs = new List<string>();
             if (Character.Player == null)
             {
+                MessageToUI messageToUI;
                 // 타이틀 출력
                 sb.Clear();
                 sb.Append($"내일배움캠프에 당도한 것을 환영하오, 낯선이여.\n");
                 sb.Append($"나는 나의 훌륭한 학생들을 굽어살피는 깨우친 튜터, 염예찬이오.\n\n");
                 sbs.Add(sb.ToString());
-                // 이름 입력
-
+                
+                // 이름 선택 출력
                 sb.Clear();
-                sb.Append($"이름을 입력해 주세요 : ");
+                sb.Append($"이름을 말하시오 : ");
                 sbs.Add(sb.ToString());
-                // 직업 선택
+                messageToUI = new MessageToUI(Define.GameEnum.eSceneType.Town, sbs.ToArray());
+                GameManager.UIManager.PutToOutQueue(messageToUI);
+                GameManager.UIManager.DisplayUpdate();
+                sbs.Clear();
 
+                // input 확인
+                var name = CheckInput();
+
+                // 직업 선택 출력
                 sb.Clear();
-                sb.Append($"직업을 선택해 주세요.\n");
-                foreach (var job in )
-                sb.Append($"직업을 선택해 주세요.\n");
+                sb.Append($"직업이 무엇이오?\n");
+                string[] jobs = { "전사", "도적", "궁수", "마법사" };
+                for (int i = 0; i <= (int)Define.GameEnum.eCharacterClass.Magician; ++i)
+                {
+                    sb.Append($"{i}. {jobs[i]}\n");
+                }
                 sbs.Add(sb.ToString());
+                messageToUI = new MessageToUI(Define.GameEnum.eSceneType.Town, sbs.ToArray());
+                GameManager.UIManager.PutToOutQueue(messageToUI);
+                GameManager.UIManager.DisplayUpdate();
+                sbs.Clear();
+
+                // input 확인
+                var job = CheckInput();
+
+                Character.Player = new Character();
+                Character.Player.Name = name;
             }
             else
             {
@@ -66,5 +87,24 @@ namespace TextRPGing.Scene
             GameManager.UIManager.PutToOutQueue(message);
             GameManager.UIManager.DisplayUpdate();
         }
+        private string CheckInput()
+        {
+            string input = null;
+            while (input == null)
+            {
+                input = Console.ReadLine();
+                if (input.Length < 0)
+                {
+                    string[] what = new string[] { "뭐라 하셨소?\n" };
+                    MessageToUI messageToUI = new MessageToUI(Define.GameEnum.eSceneType.Town, what);
+                    GameManager.UIManager.PutToOutQueue(messageToUI);
+                    GameManager.UIManager.DisplayUpdate();
+                    input = null;
+                }
+            }
+            return input;
+        }
     }
+
+
 }
