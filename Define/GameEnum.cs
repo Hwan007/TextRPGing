@@ -4,11 +4,11 @@
     {
         public enum eSceneType
         {
+            Town,
             Status,
             Battle,
             Recovery,
             SaveLoad,
-            Main,
             End
         }
 
