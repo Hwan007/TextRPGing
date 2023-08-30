@@ -9,6 +9,13 @@ namespace TextRPGing.Model
 {
     public class ActionResult : IAction
     {
+        public string Name { get; set; }
 
+        public ActionResult Result { get; set; }
+
+        public ActionResult GetDamage(int atk, int def, float crt, float avd)
+        {
+
+        }
     }
 }

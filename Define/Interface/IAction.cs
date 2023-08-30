@@ -8,13 +8,8 @@ namespace TextRPGing.Define.Interface
 {
     public interface IAction
     {
-        public string Name { get; set; }
-        public ActionResult? result { get; set; }
-
-    }
-
-    public class ActionResult : IAction
-    {
-
+        string Name { get; set; }
+        ActionResult Result { get; set; }
+        abstract ActionResult GetDamage(int atk, int def, float crt, float avd);
     }
 }

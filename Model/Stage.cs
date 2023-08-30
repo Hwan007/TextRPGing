@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace TextRPGing.Model
 {
-    public class Attack
+    public class Stage
     {
-        public int Damage { get; set; }
+        public Monster[] Monsters { get; set; }
+        public string Name { get; set; }
+        public int Difficulty { get; set; }
 
     }
 }
