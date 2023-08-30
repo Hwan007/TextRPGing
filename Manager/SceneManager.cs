@@ -3,14 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TextRPGing.Define.Interface;
+using TextRPGing.Scene;
 
 namespace TextRPGing.Manager
 {
     public class SceneManager
     {
         public static SceneManager instance = null;
+        
+        public Scene.Status StatusScene { get => mScenes[(int)Define.GameEnum.eSceneType.Status] as Status; }
+        public Scene.Battle BattleScene { get => mScenes[(int)Define.GameEnum.eSceneType.Battle] as Battle; }
+        public Scene.Recovery RecoveryScene { get => mScenes[(int)Define.GameEnum.eSceneType.Recovery] as Recovery; }
+        public Scene.SaveLoad SaveLoadScene { get => mScenes[(int)Define.GameEnum.eSceneType..SaveLoadScene] as SaveLoad; }
+        public Scene.Town TownScene { get => mScenes[(int)Define.GameEnum.eSceneType.Town] as Town; }
+
         private int[,] mRoadMap;
         private Define.GameEnum.eSceneType mCurrentScene;
+        private IScene[] mScenes;
 
         public SceneManager()
         {
@@ -19,14 +29,21 @@ namespace TextRPGing.Manager
             if (instance == null)
                 instance = this;
             mCurrentScene = Define.GameEnum.eSceneType.Town;
+
+            mScenes = new IScene[(int)Define.GameEnum.eSceneType.End+1];
+            mScenes[(int)Define.GameEnum.eSceneType.Town] = new Scene.Town();
+            mScenes[(int)Define.GameEnum.eSceneType.Status] = new Scene.Status();
+            mScenes[(int)Define.GameEnum.eSceneType.Battle] = new Scene.Battle();
+            mScenes[(int)Define.GameEnum.eSceneType.Recovery] = new Scene.Recovery();
+            mScenes[(int)Define.GameEnum.eSceneType.SaveLoad] = new Scene.SaveLoad();
         }
         public bool ActByInput(int input)
         {
-            return false;
+            return mScenes[(int)mCurrentScene].ActByInput(input);
         }
         public void MainLoop()
         {
-
+            mScenes[(int)mCurrentScene].MainLoop();
         }
         public void ChangeScene(Define.GameEnum.eSceneType sceneType)
         {
