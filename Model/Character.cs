@@ -8,7 +8,7 @@ using TextRPGing.Define.Interface;
 
 namespace TextRPGing.Model
 {
-    public  class Character : CharacterController, IBattleStat
+    public class Character : CharacterController, IBattleStat
     {
         public static Character Player = null;
         public int Id { get; set; }
@@ -20,13 +20,6 @@ namespace TextRPGing.Model
         public int DEF { get; set; }
         public float CRT { get; set; }
         public float AVD { get; set; }
-        enum characterClass
-        {
-            Warrior,
-            Thief,
-            Archer,
-            Magician
-        }
         public Inventory Inven { get; set; }
         public Equipment Equip { get; set; }
 
