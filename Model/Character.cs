@@ -8,8 +8,9 @@ using TextRPGing.Define.Interface;
 
 namespace TextRPGing.Model
 {
-    public class Character : CharacterController, IBattleStat
+    public  class Character : CharacterController, IBattleStat
     {
+        public static Character Player = null;
         public int Id { get; set; }
         public string Name { get; set; }
         public int Level { get; set; }
@@ -46,5 +47,5 @@ namespace TextRPGing.Model
                 HP = MaxHP;
         }
 
-    }
+    } 
 }
