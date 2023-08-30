@@ -12,10 +12,15 @@ namespace TextRPGing.Model
         public string Name { get; set; }
 
         public ActionResult Result { get; set; }
+        public ActionResult()
+        {
+
+        }
 
         public ActionResult GetDamage(int atk, int def, float crt, float avd)
         {
-
+            // 데미지 계산식
+            int Damage = 
         }
     }
 }
