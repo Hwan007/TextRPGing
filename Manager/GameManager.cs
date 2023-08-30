@@ -24,7 +24,7 @@ namespace TextRPGing.Manager
 
         public void GameStart()
         {
-            DisplayIntroScene();
+            _sceneManager.MainLoop();
 
             while (true)
             {
