@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace TextRPGing.Model
 {
-    internal class Attack
+    public class Attack
     {
+        public int MinDamage { get; set; }
+        public int MaxDamage { get; set; }
+        public int Damage { get; set; }
+
+
     }
 }
