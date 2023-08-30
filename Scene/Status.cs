@@ -18,7 +18,7 @@ namespace TextRPGing.Scene
                 return false;
             else
             {
-                SceneManager.instance.ChangeScene(Routes[input]);
+                GameManager.SceneManager.ChangeScene(Routes[input]);
                 return true;
             }
         }
@@ -30,7 +30,7 @@ namespace TextRPGing.Scene
             // 타이틀 출력
             sb.Clear();
             sb.Append("상태보기\n");
-            sb.Append("캐릭터의 정보가 표시됩니다.\n");
+            sb.Append("캐릭터의 정보가 표시됩니다.\n\n");
             sbs.Add(sb.ToString());
 
             // 캐릭터 정보 출력
@@ -40,7 +40,7 @@ namespace TextRPGing.Scene
             sb.Append($"공격력 : {Character.Player.ATK}\n");
             sb.Append($"방어력 : {Character.Player.DEF}\n");
             sb.Append($"체  력 : {Character.Player.HP}/{Character.Player.MaxHP}\n");
-            sb.Append($"골  드 : {Character.Player.Inven.Gold}\n");
+            sb.Append($"골  드 : {Character.Player.Inven.Gold}\n\n");
             sbs.Add(sb.ToString());
             
             // 선택지 출력
@@ -67,6 +67,7 @@ namespace TextRPGing.Scene
 
             MessageToUI message = new MessageToUI(Define.GameEnum.eSceneType.Status, sbs.ToArray());
             GameManager.UIManager.PutToOutQueue(message);
+            GameManager.UIManager.DisplayUpdate();
         }
     }
 }
