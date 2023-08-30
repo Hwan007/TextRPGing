@@ -3,18 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TextRPGing.Model;
 
 namespace TextRPGing.Define.Interface
 {
     public interface IAction
     {
-        public string Name { get; set; }
-        public ActionResult? result { get; set; }
+        string Name { get; set; }
+        ActionResult result { get; set; }
 
+        ActionResult GetDamage(int atk, int def, float crt, float avd);
     }
 
-    public class ActionResult : IAction
-    {
-
-    }
 }
