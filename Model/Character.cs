@@ -23,9 +23,25 @@ namespace TextRPGing.Model
         public Inventory Inven { get; set; }
         public Equipment Equip { get; set; }
 
+        private int xATK = 0;
+        private int xDEF = 0;
+
         public override void ReStat()
         {
-            
+            ATK -= xATK;
+            xATK = 0;
+            DEF -= xDEF;
+            xDEF = 0;
+            foreach (Weapon weapon in Equip.Items)
+            {
+                xATK += weapon.ATK;
+            }
+            foreach (Armor armor in Equip.Items)
+            {
+                xDEF += armor.DEF;
+            }
+            ATK += xATK;
+            DEF -= xDEF;
         }
 
         public override void TakeDamage(int  damage)
