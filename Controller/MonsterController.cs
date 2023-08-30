@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace TextRPGing.Controller
 {
-    public class MonsterController
+    public abstract class MonsterController
     {
-        public void TakeDamage(int damage)
-        {
+        public abstract void TakeDamage(int damage);
             // 데미지 받기
-        }
     }
 }
