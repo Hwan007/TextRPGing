@@ -26,5 +26,13 @@
             Armor,
             Weapon
         }
+
+        public enum eCharacterClass
+        {
+            Warrior,
+            Thief,
+            Archer,
+            Magician
+        }
     }
 }
