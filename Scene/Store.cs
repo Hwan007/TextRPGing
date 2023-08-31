@@ -15,6 +15,12 @@ namespace TextRPGing.Scene
     {
         public static Store Merchant;
         public List<Item> Items { get; private set; }
+        private eState mState;
+        private enum eState
+        {
+            Sell,
+            Buy
+        }
 
         public Store()
         {
@@ -23,20 +29,41 @@ namespace TextRPGing.Scene
                 Merchant = this;
                 Items = new List<Item>();
             }
+            mState = eState.Buy;
         }
 
         public bool ActByInput(int input, ref GameEnum.eSceneType scene)
         {
             var routes = GameManager.SceneManager.GetEnableScene(Define.GameEnum.eSceneType.Store);
-            if (input >= routes.Length + Items.Count)
+            if (input >= routes.Length + Items.Count + 1)
                 return false;
             else
             {
-                if (input >= routes.Length)
-                    Character.Player.Inven.AddItem(Items[input - routes.Length]);
+                if (input >= routes.Length + 1)
+                {
+                    if (mState == eState.Buy)
+                    {
+                        var item = Items[input - routes.Length - 1];
+                        Character.Player.Inven.AddItem(item);
+                        Character.Player.Inven.Gold -= item.Price;
+                    }
+                    else
+                    {
+                        var item = Character.Player.Inven.GetItem(input - routes.Length - 1);
+                        Character.Player.Inven.RemoveItem(input - routes.Length - 1);
+                        Character.Player.Inven.Gold += item.Price * 85 / 100;
+                    }
+                }
                 else
                 {
-                    GameManager.SceneManager.ChangeScene(ref scene, routes[input]);
+                    if (input > 1)
+                        GameManager.SceneManager.ChangeScene(ref scene, routes[input - 1]);
+                    else if (input == 1)
+                    {
+                        mState = mState == eState.Buy ? eState.Sell : eState.Buy;
+                    }
+                    else
+                        GameManager.SceneManager.ChangeScene(ref scene, routes[input]);
                 }
                 return true;
             }
@@ -55,45 +82,10 @@ namespace TextRPGing.Scene
 
             // 아이템 리스트 출력
             // 번호 | 이름 | 능력치 | 설명 | 금액
-            StringBuilder tempStr = new StringBuilder();
-            for (int i = routes.Length; i < Items.Count + routes.Length; ++i)
-            {
-                // 번호
-                if (i > 9)
-                    sb.Append($"[{i}]");
-                else
-                    sb.Append($"[{i}] ");
-                // 이름
-                tempStr.Append(Items[i].Name);
-                tempStr.Append(Fit(tempStr.ToString(), 16));
-                sb.Append(tempStr + " | ");
-                // 능력치
-                tempStr.Clear();
-                if (Items[i] is Weapon)
-                {
-                    var item = Items[i] as Weapon;
-                    tempStr.Append("공격력 +" + item.ATK);
-                }
-                else if (Items[i] is Armor)
-                {
-                    var item = Items[i] as Armor;
-                    tempStr.Append("방어력 +" + item.DEF);
-                }
-                else if (Items[i] is Potion)
-                {
-                    var item = Items[i] as Potion;
-                    tempStr.Append("회복력 +" + item.Heal);
-                }
-                tempStr.Append(Fit(tempStr.ToString(), 12));
-                sb.Append(tempStr + " | ");
-                // 설명
-                tempStr.Clear();
-                tempStr.Append($"{Items[i].Description}");
-                tempStr.Append(Fit(tempStr.ToString(), 40));
-                sb.Append(tempStr + " | ");
-                // 금액
-                sb.Append($"{Items[i].Price}" + "\n");
-            }
+            if (mState == eState.Buy)
+                sb.Append(GetItemList(Items));
+            else
+                sb.Append(GetItemList(Character.Player.Inven.Items));
 
             // 행선지 출력
             // 0 나가기
@@ -101,6 +93,15 @@ namespace TextRPGing.Scene
             for (int i = 0; i < routes.Length; ++i)
             {
                 sb.Append($"{i}. ");
+                if (i == 1)
+                {
+                    if (mState == eState.Sell)
+                        sb.Append("1. 구매\n");
+                    else
+                        sb.Append("1. 판매\n");
+                    ++i;
+                    continue;
+                }
                 switch (routes[i])
                 {
                     case GameEnum.eSceneType.Town:
@@ -123,6 +124,7 @@ namespace TextRPGing.Scene
                         break;
                 }
             }
+
             MessageAndUpdate(sb.ToString());
         }
 
@@ -174,6 +176,55 @@ namespace TextRPGing.Scene
             GameManager.UIManager.PutToOutQueue(message);
             GameManager.UIManager.DisplayUpdate();
             GameManager.UIManager.ClearMessageQueue();
+        }
+        private string GetItemList(List<Item> itmes)
+        {
+            StringBuilder sb = new StringBuilder();
+            StringBuilder tempStr = new StringBuilder();
+            var routes = GameManager.SceneManager.GetEnableScene(Define.GameEnum.eSceneType.Store);
+            for (int i = routes.Length; i < Items.Count + routes.Length; ++i)
+            {
+                // 번호
+                if (i > 9)
+                    sb.Append($"[{i}]");
+                else
+                    sb.Append($"[{i}] ");
+                // 이름
+                tempStr.Append(Items[i].Name);
+                tempStr.Append(Fit(tempStr.ToString(), 16));
+                sb.Append(tempStr + " | ");
+                // 능력치
+                tempStr.Clear();
+                if (Items[i] is Weapon)
+                {
+                    var item = Items[i] as Weapon;
+                    tempStr.Append("공격력 +" + item.ATK);
+                }
+                else if (Items[i] is Armor)
+                {
+                    var item = Items[i] as Armor;
+                    tempStr.Append("방어력 +" + item.DEF);
+                }
+                else if (Items[i] is Potion)
+                {
+                    var item = Items[i] as Potion;
+                    tempStr.Append("회복력 +" + item.Heal);
+                }
+                tempStr.Append(Fit(tempStr.ToString(), 12));
+                sb.Append(tempStr + " | ");
+                // 설명
+                tempStr.Clear();
+                tempStr.Append($"{Items[i].Description}");
+                tempStr.Append(Fit(tempStr.ToString(), 40));
+                sb.Append(tempStr + " | ");
+                // 금액
+                if (mState == eState.Buy)
+                    sb.Append($"{Items[i].Price}" + "\n");
+                else
+                    sb.Append($"{Items[i].Price * 85 / 100}" + "\n");
+            }
+
+            return sb.ToString();
         }
     }
 }
