@@ -58,6 +58,9 @@ namespace TextRPGing.Scene
                     case Define.GameEnum.eSceneType.Battle:
                         sb.Append($"{i}. 전투 시작\n");
                         break;
+                    case Define.GameEnum.eSceneType.Store:
+                        sb.Append($"{i}. 상점\n");
+                        break;
                     default:
                         sb.Append($"{i}. 오류입니다. 수정해주세요.\n");
                         break;

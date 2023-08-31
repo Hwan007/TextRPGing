@@ -57,13 +57,19 @@ namespace TextRPGing.Scene
                 else
                 {
                     if (input > 1)
+                    {
                         GameManager.SceneManager.ChangeScene(ref scene, routes[input - 1]);
+                        mState = eState.Buy;
+                    }
                     else if (input == 1)
                     {
                         mState = mState == eState.Buy ? eState.Sell : eState.Buy;
                     }
                     else
+                    {
                         GameManager.SceneManager.ChangeScene(ref scene, routes[input]);
+                        mState = eState.Buy;
+                    }
                 }
                 return true;
             }
@@ -77,7 +83,10 @@ namespace TextRPGing.Scene
             // 제목 출력
             // 상점
             // 아이템을 사고 팔 수 있습니다.
-            sb.Append($"상점\n");
+            if (mState == eState.Buy)
+                sb.Append($"상점\n");
+            else
+                sb.Append($"상점 - 판매\n");
             sb.Append($"아이템을 사고 팔 수 있습니다.\n\n");
 
             // 아이템 리스트 출력
