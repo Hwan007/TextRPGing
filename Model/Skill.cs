@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TextRPGing.Define.Interface;
 
 namespace TextRPGing.Model
 {
-    public class Skill
+    public class Skill : IAction
     {
         public int Id { get; set; }
         Define.GameEnum.eSkillType Type { get; set; }
