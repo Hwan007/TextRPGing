@@ -44,6 +44,8 @@ namespace TextRPGing.Manager
                     DisplayValidInput();
                     continue;
                 }
+                else
+                    break;
             }
         }
 
