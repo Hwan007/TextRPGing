@@ -15,6 +15,10 @@ namespace TextRPGing.Model
         public string Description { get; set; }
         public int Price { get; set; }
 
+        public Item()
+        {
+        }
+
         public Item(int id, string name, GameEnum.eItemType type, string description, int price)
         {
             Id = id;
