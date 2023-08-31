@@ -6,6 +6,7 @@ namespace TextRPGing.Manager
     public class GameManager
     {
         private static GameManager s_instance;
+        
 
         public static GameManager GetInstance()
         {

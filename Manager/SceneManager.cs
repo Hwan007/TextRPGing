@@ -53,12 +53,12 @@ namespace TextRPGing.Manager
             else
                 throw new Exception($"{CurrentScene} -> {to} 허락되지 않은 Scene 이동입니다.");
         }
-        public Define.GameEnum.eSceneType[] GetEnableScene()
+        public Define.GameEnum.eSceneType[] GetEnableScene(Define.GameEnum.eSceneType currentScene)
         {
             List<Define.GameEnum.eSceneType> ret = new List<Define.GameEnum.eSceneType>();
-            for (int i = 0; i < mRoadMap.GetLength((int)CurrentScene);++i)
+            for (int i = 0; i < 6;++i)
             {
-                if (mRoadMap[(int)CurrentScene, i] == 1 && (int)CurrentScene != i)
+                if (mRoadMap[(int)currentScene, i] == 1 && (int)currentScene != i)
                     ret.Add((Define.GameEnum.eSceneType)i);
             }
             return ret.ToArray();
