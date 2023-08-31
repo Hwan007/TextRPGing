@@ -49,11 +49,17 @@ namespace TextRPGing.Scene
                 state = InvenState.changeItem;
                 return true;
             }
-            else if (input >= 0 && input < Character.Player.Inven.Items.Count)
+            else if (input >= 0 && input < Character.Player.Inven.Items.Count && state == InvenState.changeItem)
             {
                 Character.Player.Equip.EquipItem(Character.Player.Inven.Items[input]);
+                return true;
             }
-            else if (input >= 0 && input < index && state == InvenState.basic)
+            else if (input == Character.Player.Inven.Items.Count && state == InvenState.changeItem)
+            {
+                state = InvenState.basic;
+                return true;
+            }
+            else if (input >= 0 && state == InvenState.basic)
             {
                 var Routes = GameManager.SceneManager.GetEnableScene(scene);
                 if (Routes.Length <= input || input < 0)
@@ -77,7 +83,7 @@ namespace TextRPGing.Scene
             string message = "인벤토리\n캐릭터의 아이템을 관리합니다.\n\n";
            
             foreach (Item item in items)
-            {
+            {              
                 string itemName = item.Name;
                 data = Encoding.Unicode.GetBytes(itemName);
                 nameLength = data.Length;
@@ -154,6 +160,7 @@ namespace TextRPGing.Scene
 
         public void ChangeItems(Item[] items)
         {
+            Console.ForegroundColor = ConsoleColor.Yellow;
             int nameLength;
             byte[] data;
             int blank;
@@ -161,6 +168,13 @@ namespace TextRPGing.Scene
             index = 0;
             foreach (Item item in items)
             {
+                foreach (Item eqItem in Character.Player.Equip.Items)
+                {
+                    if (eqItem.Name == item.Name)
+                    {
+                        message += "[E]";
+                    }
+                }
                 message += $"{index}.";
                 index++;
                 string itemName = item.Name;
@@ -176,6 +190,7 @@ namespace TextRPGing.Scene
                     if (i == 1)
                         break;
                     message += $"{item.Name}";
+                    Console.ForegroundColor = ConsoleColor.Yellow;
                 }
                 message += "|";
                 switch (item.Type)
@@ -231,34 +246,44 @@ namespace TextRPGing.Scene
 
                 }
 
+
                 message += $"|\t{item.Description}\n";
             }
 
             MessageToUIManager(message);
+            Console.ForegroundColor = ConsoleColor.White;
         }
 
         private void DisplayRoute()
         {
             string message = "";
             Define.GameEnum.eSceneType[] routeList = GameManager.SceneManager.GetEnableScene(Define.GameEnum.eSceneType.Inventory);
-            foreach (var route in routeList)
+            if (state == InvenState.basic)
             {
-                //message += $"{index}. " + routeList[index] + "\n";
-                switch (route)
+                foreach (var route in routeList)
                 {
-                    case Define.GameEnum.eSceneType.Town:
-                        message += $"{index}. 나가기\n";
-                        break;
-                    case Define.GameEnum.eSceneType.Status:
-                        message += $"{index}. 상태보기\n";
-                        break;
-                    default:
-                        message += $"{index}. 오류입니다. 수정하세요.\n";
-                        break;
+                    //message += $"{index}. " + routeList[index] + "\n";
+
+                    switch (route)
+                    {
+                        case Define.GameEnum.eSceneType.Town:
+                            message += $"{index}. 나가기\n";
+                            break;
+                        case Define.GameEnum.eSceneType.Status:
+                            message += $"{index}. 상태보기\n";
+                            break;
+                        default:
+                            message += $"{index}. 오류입니다. 수정하세요.\n";
+                            break;
+                    }
+                    index++;
+
                 }
-                index++;
+                message += $"{index}. 아이템 관리\r\n";
             }
-            message += $"{index}. 아이템 관리\r\n" +
+            
+            else message += $"{index}. 종료\r\n";
+            message += $"" +
                        "원하는 행동을 입력해주세요.\r\n" +
                        ">> ";
             MessageToUIManager(message);
