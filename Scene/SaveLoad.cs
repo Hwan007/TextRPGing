@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TextRPGing.Define;
 using TextRPGing.Define.Interface;
 
 namespace TextRPGing.Scene
@@ -13,6 +14,11 @@ namespace TextRPGing.Scene
         {
             // TODO
             return false;
+        }
+
+        public bool ActByInput(int input, ref GameEnum.eSceneType scene)
+        {
+            throw new NotImplementedException();
         }
 
         public void MainLoop()

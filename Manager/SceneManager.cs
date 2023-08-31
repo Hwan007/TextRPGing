@@ -18,8 +18,7 @@ namespace TextRPGing.Manager
         public Town TownScene { get => mScenes[(int)GameEnum.eSceneType.Town] as Town; }
 
         private int[,] mRoadMap;
-        public Define.GameEnum.eSceneType CurrentScene { get; set; }
-        private Define.GameEnum.eSceneType? SceneToChange { get; set; }
+        private Define.GameEnum.eSceneType CurrentScene;
         private IScene[] mScenes;
 
         public SceneManager()
@@ -37,24 +36,22 @@ namespace TextRPGing.Manager
         }
         public bool ActByInput(int input)
         {
-            bool ret = mScenes[(int)CurrentScene].ActByInput(input);
-            if (SceneToChange.HasValue)
-                CurrentScene = SceneToChange.Value;
+            int index = (int)CurrentScene;
+            bool ret = mScenes[index].ActByInput(input, ref CurrentScene);
             return ret;
         }
         public void MainLoop()
         {
             mScenes[(int)CurrentScene].MainLoop();
         }
-        public void ChangeScene(Define.GameEnum.eSceneType sceneType)
+        public void ChangeScene(ref Define.GameEnum.eSceneType from, Define.GameEnum.eSceneType to)
         {
-            if (mRoadMap[(int)CurrentScene, (int)sceneType] == 1)
+            if (mRoadMap[(int)CurrentScene, (int)to] == 1)
             {
-                CurrentScene = sceneType;
-                SceneToChange = sceneType;
+                from = to;
             }
             else
-                throw new Exception($"{CurrentScene} -> {sceneType} 허락되지 않은 Scene 이동입니다.");
+                throw new Exception($"{CurrentScene} -> {to} 허락되지 않은 Scene 이동입니다.");
         }
         public Define.GameEnum.eSceneType[] GetEnableScene()
         {

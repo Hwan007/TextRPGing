@@ -14,7 +14,7 @@ namespace TextRPGing.Scene
         private string[] jobs = { "전사", "도적", "궁수", "마법사" };
         private string name;
         private Define.GameEnum.eCharacterClass? job;
-        public bool ActByInput(int input)
+        public bool ActByInput(int input, ref Define.GameEnum.eSceneType scene)
         {
             if (Character.Player == null)
             {
@@ -37,7 +37,7 @@ namespace TextRPGing.Scene
                     return false;
                 else
                 {
-                    GameManager.SceneManager.ChangeScene(Routes[input]);
+                    GameManager.SceneManager.ChangeScene(ref scene, Routes[input]);
                     return true;
                 }
             }

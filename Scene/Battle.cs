@@ -56,7 +56,7 @@ namespace TextRPGing.Scene
             }
         }
 
-        public bool ActByInput(int Input)
+        public bool ActByInput(int Input, ref Define.GameEnum.eSceneType scene)
         {
             return false; // 임시로 써놓은겁니다.
         }
