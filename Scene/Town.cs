@@ -33,7 +33,7 @@ namespace TextRPGing.Scene
             else
             {
                 var Routes = GameManager.SceneManager.GetEnableScene();
-                if (Routes.Length >= input)
+                if (Routes.Length <= input)
                     return false;
                 else
                 {

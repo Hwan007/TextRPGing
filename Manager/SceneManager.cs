@@ -54,9 +54,9 @@ namespace TextRPGing.Manager
         public Define.GameEnum.eSceneType[] GetEnableScene()
         {
             List<Define.GameEnum.eSceneType> ret = new List<Define.GameEnum.eSceneType>();
-            for (int i = 0; i < mRoadMap.GetLength((int)mCurrentScene);)
+            for (int i = 0; i < mRoadMap.GetLength((int)mCurrentScene);++i)
             {
-                if (mRoadMap[(int)mCurrentScene, i] == 1)
+                if (mRoadMap[(int)mCurrentScene, i] == 1 && (int)mCurrentScene != i)
                     ret.Add((Define.GameEnum.eSceneType)i);
             }
             return ret.ToArray();
@@ -84,7 +84,7 @@ namespace TextRPGing.Manager
                         mRoadMap[i, (int)GameEnum.eSceneType.Battle] = 1;
                         mRoadMap[i, (int)GameEnum.eSceneType.Recovery] = 1;
                         mRoadMap[i, (int)GameEnum.eSceneType.SaveLoad] = 1;
-                        mRoadMap[i, (int)GameEnum.eSceneType.Town] = 1;
+                        mRoadMap[i, (int)GameEnum.eSceneType.Status] = 1;
                         break;
                     case GameEnum.eSceneType.End:
                         mRoadMap[i, (int)GameEnum.eSceneType.Town] = 1;

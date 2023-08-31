@@ -24,25 +24,30 @@ namespace TextRPGing.Manager
 
         public void GameStart()
         {
-            _sceneManager.MainLoop();
-
             while (true)
             {
-                string input = Console.ReadLine();
+                _sceneManager.MainLoop();
 
-                int inputNum = 0;
-                if (int.TryParse(input, out inputNum) == false)
+                while (true)
                 {
-                    DisplayValidInput();
-                    continue;
-                }
+                    string input = Console.ReadLine();
 
-                bool isInputNumAct = _sceneManager.ActByInput(inputNum);
+                    int inputNum = 0;
+                    if (int.TryParse(input, out inputNum) == false)
+                    {
+                        DisplayValidInput();
+                        continue;
+                    }
 
-                if (isInputNumAct == false)
-                {
-                    DisplayValidInput();
-                    continue;
+                    bool isInputNumAct = _sceneManager.ActByInput(inputNum);
+
+                    if (isInputNumAct == false)
+                    {
+                        DisplayValidInput();
+                        continue;
+                    }
+                    else
+                        break;
                 }
             }
         }
