@@ -25,6 +25,7 @@ namespace TextRPGing.Scene
 
         public void MainLoop()
         {
+            GameManager.UIManager.ConsoleClear();
             List<string> sbs = new List<string>();
             StringBuilder sb = new StringBuilder();
             // 타이틀 출력
