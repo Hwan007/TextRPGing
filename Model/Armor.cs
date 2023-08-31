@@ -21,6 +21,7 @@ namespace TextRPGing.Model
             AVD = avd;
             Price = price;
             Type = Define.GameEnum.eItemType.Armor;
+            Id = new Random().Next(0, 99999);
         }
     }
 }
