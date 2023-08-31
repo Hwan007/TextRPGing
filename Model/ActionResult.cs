@@ -7,8 +7,9 @@ using TextRPGing.Define.Interface;
 
 namespace TextRPGing.Model
 {
-    public class ActionResult : IAction
+    public class ActionResult
     {
+        IAction action;
         public string Name { get; set; }
 
         public ActionResult Result { get; set; }

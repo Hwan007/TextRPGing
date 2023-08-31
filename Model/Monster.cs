@@ -21,6 +21,17 @@ namespace TextRPGing.Model
         public int RewardExp { get; set; }
         public int RewardGold { get; set; }
 
+        public Monster(string name, int maxHP, int atk, int def, float crt, float avd)
+        {
+            Name = name;
+            HP = maxHP;
+            MaxHP = maxHP;
+            ATK = atk;
+            DEF = def;
+            CRT = crt;
+            AVD = avd;
+        }
+
         public override void TakeDamage(int damage)
         {
             HP -= (int)((damage - DEF) * AVD);
