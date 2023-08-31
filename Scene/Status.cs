@@ -13,7 +13,7 @@ namespace TextRPGing.Scene
     {
         public bool ActByInput(int input, ref Define.GameEnum.eSceneType scene)
         {
-            var Routes = GameManager.SceneManager.GetEnableScene();
+            var Routes = GameManager.SceneManager.GetEnableScene(scene);
             if (Routes.Length >= input)
                 return false;
             else
@@ -46,7 +46,7 @@ namespace TextRPGing.Scene
             
             // 선택지 출력
             sb.Clear();
-            var Routes = GameManager.SceneManager.GetEnableScene();
+            var Routes = GameManager.SceneManager.GetEnableScene(Define.GameEnum.eSceneType.Status);
             int i = 0;
             foreach (var route in Routes)
             {
