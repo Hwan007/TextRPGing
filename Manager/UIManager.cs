@@ -7,7 +7,7 @@ namespace TextRPGing.Manager
 {
     public class UIManager
     {
-        private Queue<string> _messageQueue;
+        private Queue<string> _messageQueue = new Queue<string>();
 
         public void DisplayUpdate()
         {
