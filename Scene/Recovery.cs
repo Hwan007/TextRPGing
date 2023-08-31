@@ -59,7 +59,8 @@ namespace TextRPGing.Scene
             }
             else if (input == 1 && healingState == HealingState.isHeal && count == 0)
             {
-                MessageToUIManager("포션이 없습니다...");
+                heal = -2;
+                return true;
             }
             else if (input == 0 && healingState == HealingState.isHeal)
             {
@@ -75,6 +76,7 @@ namespace TextRPGing.Scene
                 {
                     scene = Routes[input];
                     healingState = HealingState.isHeal;
+                    heal = -1;
                     return true;
                 }
             }
@@ -95,6 +97,7 @@ namespace TextRPGing.Scene
         
         private void DisplayHeal(int heal)
         {
+            count = 0;
             string message = "";
             foreach (Item item in Character.Player.Inven.Items)
             {
@@ -107,6 +110,7 @@ namespace TextRPGing.Scene
             if (heal > 0)
                 message += $"체력을 +{heal} 회복하였습니다.\r\n";
             else if (heal == 0) message += "이미 체력이 가득 찼습니다.\r\n";
+            else if (heal == -2) message += "포션이 없습니다...\r\n";
             message += $"소지개수 : {count}\n\n체력: {Character.Player.HP}/{Character.Player.MaxHP}\n\n\n\n\n1. 회복\r\n0. 나가기";
             MessageToUIManager(message);
         }
@@ -114,7 +118,7 @@ namespace TextRPGing.Scene
         private void DisplayRoute()
         {
             Define.GameEnum.eSceneType[] routeList = GameManager.SceneManager.GetEnableScene(Define.GameEnum.eSceneType.Recovery);
-            string message = $"소지개수 : [개수]\n\n체력: {Character.Player.HP}/{Character.Player.MaxHP}\n\n\n\n\n";
+            string message = $"소지개수 : {count}\n\n체력: {Character.Player.HP}/{Character.Player.MaxHP}\n\n\n\n\n";
             int index = 0;
             foreach (var route in routeList)
             {
