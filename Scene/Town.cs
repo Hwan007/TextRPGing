@@ -12,48 +12,62 @@ namespace TextRPGing.Scene
     public class Town : Define.Interface.IScene
     {
         private string[] jobs = { "전사", "도적", "궁수", "마법사" };
+        private string name;
+        private Define.GameEnum.eCharacterClass? job;
         public bool ActByInput(int input)
         {
-            var Routes = GameManager.SceneManager.GetEnableScene();
-            if (Routes.Length >= input)
+            if (Character.Player == null)
+            {
+                job = CheckJob(input);
+
+                if (name != null && job.HasValue)
+                {
+                    Character.Player = new Character(name, job.Value);
+                    SendToUIManager($"내일배움캠프에 온 것을 환영하오.");
+                    GameManager.UIManager.DisplayUpdate();
+                    GameManager.UIManager.ClearMessageQueue();
+                    return true;
+                }
                 return false;
+            }
             else
             {
-                GameManager.SceneManager.ChangeScene(Routes[input]);
-                return true;
+                var Routes = GameManager.SceneManager.GetEnableScene();
+                if (Routes.Length >= input)
+                    return false;
+                else
+                {
+                    GameManager.SceneManager.ChangeScene(Routes[input]);
+                    return true;
+                }
             }
         }
 
         public void MainLoop()
         {
-            
             if (Character.Player == null)
             {
                 // 타이틀 출력
                 SendToUIManager($"내일배움캠프에 당도한 것을 환영하오, 낯선이여.\n");
                 SendToUIManager($"나는 나의 훌륭한 학생들을 굽어살피는 깨우친 튜터, 염예찬이오.\n\n");
-                
+
                 // 이름 선택 출력
                 SendToUIManager($"이름을 말하시오.\n\n");
                 GameManager.UIManager.DisplayUpdate();
+                GameManager.UIManager.ClearMessageQueue();
 
                 // input 확인
-                var name = CheckName();
+                name = CheckName();
 
                 // 직업 선택 출력
                 SendToUIManager($"직업이 무엇이오?\n");
                 for (int i = 0; i <= (int)Define.GameEnum.eCharacterClass.Magician; ++i)
                 {
-                    SendToUIManager($"{jobs[i]}\t");
+                    SendToUIManager($"[{i}] {jobs[i]}\n");
                 }
-                SendToUIManager("\n\n");
+                SendToUIManager("\n");
                 GameManager.UIManager.DisplayUpdate();
-
-                // input 확인
-                var job = CheckJob();
-
-                if (name != null && job.HasValue)
-                    Character.Player = new Character(name, job.Value);
+                GameManager.UIManager.ClearMessageQueue();
             }
             else
             {
@@ -78,15 +92,16 @@ namespace TextRPGing.Scene
 
                 SendToUIManager(sbs.ToArray());
                 GameManager.UIManager.DisplayUpdate();
+                GameManager.UIManager.ClearMessageQueue();
             }
         }
         private void AppendRoutes(ref StringBuilder sb)
         {
             var routes = GameManager.SceneManager.GetEnableScene();
-            for (int i = 0; i<routes.Length; ++i)
+            for (int i = 0; i < routes.Length; ++i)
             {
                 sb.Append($"{i}. ");
-                switch(routes[i])
+                switch (routes[i])
                 {
                     case Define.GameEnum.eSceneType.Status:
                         sb.Append($"상태보기\n");
@@ -117,62 +132,34 @@ namespace TextRPGing.Scene
                 {
                     SendToUIManager("뭐라 하셨소?\n");
                     GameManager.UIManager.DisplayUpdate();
+                    GameManager.UIManager.ClearMessageQueue();
                     input = null;
                 }
             }
             return input;
         }
-        private Define.GameEnum.eCharacterClass? CheckJob()
+        private Define.GameEnum.eCharacterClass? CheckJob(int input)
         {
-            string input = null;
             Define.GameEnum.eCharacterClass? job = null;
-            while (input == null)
+            switch (input)
             {
-                input = Console.ReadLine();
-                if (input.Length < 0)
-                {
-                    SendToUIManager("뭐라 하셨소?\n");
+                case 0:
+                    job = Define.GameEnum.eCharacterClass.Warrior;
+                    break;
+                case 1:
+                    job = Define.GameEnum.eCharacterClass.Thief;
+                    break;
+                case 2:
+                    job = Define.GameEnum.eCharacterClass.Archer;
+                    break;
+                case 3:
+                    job = Define.GameEnum.eCharacterClass.Magician;
+                    break;
+                default:
+                    SendToUIManager("그런 직업은 없소이다.\n");
                     GameManager.UIManager.DisplayUpdate();
-                    input = null;
-                }
-                else if (jobs.Contains(input))
-                {
-                    if (input == jobs[0])
-                        job = Define.GameEnum.eCharacterClass.Warrior;
-                    else if (input == jobs[1])
-                        job = Define.GameEnum.eCharacterClass.Thief;
-                    else if (input == jobs[2])
-                        job = Define.GameEnum.eCharacterClass.Archer;
-                    else if (input == jobs[3])
-                        job = Define.GameEnum.eCharacterClass.Magician;
-                }
-                else if (int.TryParse(input, out int ret))
-                {
-                    if (ret >= 0 && ret < 4)
-                    {
-                        switch (ret)
-                        {
-                            case 0:
-                                job = Define.GameEnum.eCharacterClass.Warrior;
-                                break;
-                            case 1:
-                                job = Define.GameEnum.eCharacterClass.Thief;
-                                break;
-                            case 2:
-                                job = Define.GameEnum.eCharacterClass.Archer;
-                                break;
-                            case 3:
-                                job = Define.GameEnum.eCharacterClass.Magician;
-                                break;
-                        }
-                    }
-                    else
-                    {
-                        SendToUIManager("그런 직업은 없소이다.\n");
-                        GameManager.UIManager.DisplayUpdate();
-                        input = null;
-                    }
-                }
+                    GameManager.UIManager.ClearMessageQueue();
+                    break;
             }
             return job;
         }
