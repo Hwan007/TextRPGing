@@ -11,17 +11,25 @@ namespace TextRPGing.Utils
 {
     public class IOSteream
     {
+        private const string FILE_PATH = "../Data/PlayerData.json";
 
-        public void SavePlayerJsonFile(string json)
+        public void SavePlayerJsonFile()
         {
-            //string json = JsonConvert.SerializeObject(Character.Player);
-
-            //File.WriteAllText($"../Data/{json}");
+            string json = JsonConvert.SerializeObject(Character.Player);
+            File.WriteAllText(FILE_PATH, json);
         }
 
-        public void LoadPlayerJsonFile()
+        public Character LoadPlayerJsonFile()
         {
+            Character player = null;
+            if (File.Exists(FILE_PATH))
+            {
+                string json = File.ReadAllText(FILE_PATH);
+                player = JsonConvert.DeserializeObject<Character>(json);
+            }
 
+            return player;
         }
+
     }
 }
