@@ -14,6 +14,7 @@ namespace TextRPGing.Manager
         public Status StatusScene { get => mScenes[(int)GameEnum.eSceneType.Status] as Status; }
         public Battle BattleScene { get => mScenes[(int)GameEnum.eSceneType.Battle] as Battle; }
         public Recovery RecoveryScene { get => mScenes[(int)GameEnum.eSceneType.Recovery] as Recovery; }
+        public SInventory InventoryScene { get => mScenes[(int)GameEnum.eSceneType.Inventory] as SInventory; }
         public SaveLoad SaveLoadScene { get => mScenes[(int)GameEnum.eSceneType.SaveLoad] as SaveLoad; }
         public Town TownScene { get => mScenes[(int)GameEnum.eSceneType.Town] as Town; }
 
@@ -32,6 +33,7 @@ namespace TextRPGing.Manager
             mScenes[(int)GameEnum.eSceneType.Status] = new Status();
             mScenes[(int)GameEnum.eSceneType.Battle] = new Battle();
             mScenes[(int)GameEnum.eSceneType.Recovery] = new Recovery();
+            mScenes[(int)GameEnum.eSceneType.Inventory] = new SInventory();
             mScenes[(int)GameEnum.eSceneType.SaveLoad] = new SaveLoad();
         }
         public bool ActByInput(int input)
