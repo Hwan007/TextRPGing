@@ -100,6 +100,9 @@ namespace TextRPGing.Scene
                     case Define.GameEnum.eSceneType.SaveLoad:
                         sb.Append($"저장하기/불러오기\n");
                         break;
+                    default:
+                        sb.Append($"오류입니다. 수정해주세요.\n");
+                        break;
                 }
             }
             sb.Append("\n");
