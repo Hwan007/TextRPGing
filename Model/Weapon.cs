@@ -12,8 +12,20 @@ namespace TextRPGing.Model
 
         public int ATK { get; set; }
         public float CRT { get; set; }
-        public Weapon(int id, string name, GameEnum.eItemType type, string description, int price) : base(id, name, type, description, price)
+        
+        
+        public Weapon()
         {
+        }
+
+        public Weapon(string name, string description, int atk, float crt, int price)
+        {
+            Name = name;
+            Description = description;
+            ATK = atk;
+            CRT = crt;
+            Price = price;
+            Type = Define.GameEnum.eItemType.Weapon;
         }
     }
 }
