@@ -16,7 +16,7 @@ namespace TextRPGing.Manager
         public Status StatusScene { get => mScenes[(int)GameEnum.eSceneType.Status] as Status; }
         public Battle BattleScene { get => mScenes[(int)GameEnum.eSceneType.Battle] as Battle; }
         public Recovery RecoveryScene { get => mScenes[(int)GameEnum.eSceneType.Recovery] as Recovery; }
-        public SaveLoad SaveLoadScene { get => mScenes[(int)GameEnum.eSceneType.SaveLoadScene] as SaveLoad; }
+        public SaveLoad SaveLoadScene { get => mScenes[(int)GameEnum.eSceneType.SaveLoad] as SaveLoad; }
         public Town TownScene { get => mScenes[(int)GameEnum.eSceneType.Town] as Town; }
 
         private int[,] mRoadMap;

@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using TextRPGing.Controller;
 
 namespace TextRPGing.Model
 {
-    public class Inventory
+    public class Inventory  : InventoryController
     {
         public int Id { get; set; }
         public List<Item> Items { get; set; } = new List<Item>();
