@@ -4,9 +4,11 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TextRPGing.Define;
 using TextRPGing.Define.Interface;
 using TextRPGing.Manager;
 using TextRPGing.Model;
+using TextRPGing.Utils;
 
 namespace TextRPGing.Scene
 {
@@ -92,15 +94,26 @@ namespace TextRPGing.Scene
                     battle += monsterMob + "\"{monstersMob}{playerStatus}1. 일반 공격\n2. 스킬\n\n원하시는 행동을 입력하세요\n>> \"";
                     break;
                 case StateType.ChooseMonster:
-                    Console.WriteLine($"{monsterMob}{playerStatus}\n\n\n\n\n대상의 번호를 입력하세요. 0 입력 시 행동 선택으로 돌아갑니다\n>>");
+                    battle += monsterMob + "\n\n\n대상의 번호를 입력하세요. 0 입력 시 행동 선택으로 돌아갑니다\n>>";
                     break;
                 case StateType.PlayerAttackResult:
-                    Console.WriteLine($"{player.Name}의 공격!\n{}");
+                    battle += $"{player.Name}의 공격! ";
                     break;
                 case StateType.MonsterAttackResult:
-                    DisplayBattleScene();
+                    battle += $"{mStage.Monsters[1].Name}의 공격! ";
                     break;
             }
+
+
+        }
+
+        private void MessageToUIManager(string message)
+        {
+            MessageToUI messageToUI = new MessageToUI(GameEnum.eSceneType.Battle, new string[] { message});
+
+            uIManager.PutToOutQueue(messageToUI);
+            uIManager.DisplayUpdate();
+            uIManager.ClearMessageQueue();
         }
     }
 }
