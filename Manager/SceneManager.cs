@@ -10,9 +10,7 @@ using TextRPGing.Scene;
 namespace TextRPGing.Manager
 {
     public class SceneManager
-    {
-        public static SceneManager instance = null;
-        
+    {       
         public Status StatusScene { get => mScenes[(int)GameEnum.eSceneType.Status] as Status; }
         public Battle BattleScene { get => mScenes[(int)GameEnum.eSceneType.Battle] as Battle; }
         public Recovery RecoveryScene { get => mScenes[(int)GameEnum.eSceneType.Recovery] as Recovery; }
@@ -27,8 +25,6 @@ namespace TextRPGing.Manager
         {
             mRoadMap = new int[(int)GameEnum.eSceneType.End+1, (int)GameEnum.eSceneType.End+1];
             MapSetting();
-            if (instance == null)
-                instance = this;
             mCurrentScene = GameEnum.eSceneType.Town;
 
             mScenes = new IScene[(int)GameEnum.eSceneType.End+1];
