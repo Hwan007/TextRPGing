@@ -4,23 +4,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TextRPGing.Define.Interface;
+using TextRPGing.Scene;
 
 namespace TextRPGing.Model
 {
     public class Attack : IAction
     {
+        public string Name { get; set; }
         public int Damage { get; set; }
-        public string Name { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public ActionResult Result { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public string AfterAction { get; set; }
+        public int FinalDamage { get; set; }
 
-        public Attack(int damage)
+        public Attack(int finalDamage)
         {
-            Damage = damage;
+            Name = "일반 공격";
+            Damage = finalDamage;
         }
 
-        public ActionResult GetDamage(int atk, int def, float crt, float avd)
+
+        public int GetDamage(int atk, int def, float crt, float avd)
         {
-            throw new NotImplementedException();
+            FinalDamage = atk;
+            return FinalDamage;
         }
     }
 }
