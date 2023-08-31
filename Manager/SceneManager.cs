@@ -88,6 +88,7 @@ namespace TextRPGing.Manager
                     case GameEnum.eSceneType.Town:
                         mRoadMap[i, (int)GameEnum.eSceneType.Battle] = 1;
                         mRoadMap[i, (int)GameEnum.eSceneType.Recovery] = 1;
+                        mRoadMap[i, (int)GameEnum.eSceneType.Inventory] = 1;
                         mRoadMap[i, (int)GameEnum.eSceneType.SaveLoad] = 1;
                         mRoadMap[i, (int)GameEnum.eSceneType.Status] = 1;
                         break;
