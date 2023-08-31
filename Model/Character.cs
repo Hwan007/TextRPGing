@@ -68,6 +68,7 @@ namespace TextRPGing.Model
             }
             Inven = new Inventory();
             Equip = new Equipment(Player);
+            Inven.Items.Add(new Potion());
         }
 
         public override void ReStat()
