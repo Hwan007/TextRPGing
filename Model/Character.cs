@@ -47,7 +47,7 @@ namespace TextRPGing.Model
                     ATK = 13;
                     DEF = 8;
                     CRT = 0.50f;
-                    AVD = 0f;
+                    AVD = 0.25f;
                     break;
                 case Define.GameEnum.eCharacterClass.Archer:
                     HP = 15;
@@ -55,7 +55,7 @@ namespace TextRPGing.Model
                     ATK = 15;
                     DEF = 7;
                     CRT = 0.35f;
-                    AVD = 0f;
+                    AVD = 0.15f;
                     break;
                 case Define.GameEnum.eCharacterClass.Magician:
                     HP = 10;

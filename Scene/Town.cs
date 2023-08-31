@@ -113,8 +113,14 @@ namespace TextRPGing.Scene
                     case Define.GameEnum.eSceneType.Recovery:
                         sb.Append($"포션 사용\n");
                         break;
+                    case Define.GameEnum.eSceneType.Inventory:
+                        sb.Append($"인벤토리\n");
+                        break;
                     case Define.GameEnum.eSceneType.SaveLoad:
                         sb.Append($"저장하기/불러오기\n");
+                        break;
+                    case Define.GameEnum.eSceneType.Store:
+                        sb.Append("상점\n");
                         break;
                     default:
                         sb.Append($"오류입니다. 수정해주세요.\n");
