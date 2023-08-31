@@ -29,7 +29,6 @@ namespace TextRPGing.Scene
 
         private StateType CurrentState;
 
-        public Character player;
         private Stage mStage;
         private IAction[] mActions = new IAction[3];
 
@@ -74,37 +73,37 @@ namespace TextRPGing.Scene
                 case StateType.ChooseAction:
                     foreach (var monster in mStage.Monsters)
                     {
-                        monsterMob += $"{monster.Name}\n{monster.HP}/{monster.MaxHP}\n\n";
+                        monsterMob += $"{monster.Name} {monster.HP}/{monster.MaxHP}\n";
                     }
                     break;
                 case StateType.ChooseMonster:
                     int monsterIndex = 0;
                     foreach (var monster in mStage.Monsters)
                     {
-                        monsterMob += $"{monsterIndex}. {monster.Name}\n{monster.HP}/{monster.MaxHP}\n\n";
+                        monsterMob += $"{monsterIndex}. {monster.Name} {monster.HP}/{monster.MaxHP}\n";
                         monsterIndex++;
                     }
                     break;
             }
-            string playerStatus = $"[내 정보]\n Lv.{player.Level} {player.Name} [플레이어 직업]\nHP {player.HP}/{player.MaxHP}\n\n";
+            string playerStatus = $"\n[내 정보]\nLv.{Character.Player.Level} {Character.Player.Name} {Character.Player.Job}\nHP {Character.Player.HP}/{Character.Player.MaxHP}\n\n";
 
             switch (CurrentState)
             {
                 case StateType.ChooseAction:
-                    battle += monsterMob + "\"{monstersMob}{playerStatus}1. 일반 공격\n2. 스킬\n\n원하시는 행동을 입력하세요\n>> \"";
+                    battle += monsterMob + playerStatus + "1. 일반 공격\n2. 스킬\n\n원하시는 행동을 입력하세요\n>> ";
                     break;
                 case StateType.ChooseMonster:
-                    battle += monsterMob + "\n\n\n대상의 번호를 입력하세요. 0 입력 시 행동 선택으로 돌아갑니다\n>>";
+                    battle += monsterMob + playerStatus + "\n\n\n대상의 번호를 입력하세요. 0 입력 시 행동 선택으로 돌아갑니다\n>>";
                     break;
                 case StateType.PlayerAttackResult:
-                    battle += $"{player.Name}의 공격! ";
+                    battle += $"{Character.Player.Name}의 공격! ";
                     break;
                 case StateType.MonsterAttackResult:
                     battle += $"{mStage.Monsters[1].Name}의 공격! ";
                     break;
             }
 
-
+            MessageToUIManager(battle);
         }
 
         private void MessageToUIManager(string message)
