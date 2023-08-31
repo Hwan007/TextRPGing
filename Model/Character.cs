@@ -66,6 +66,8 @@ namespace TextRPGing.Model
                     AVD = 0f;
                     break;
             }
+            Inven = new Inventory();
+            Equip = new Equipment(Player);
         }
 
         public override void ReStat()
