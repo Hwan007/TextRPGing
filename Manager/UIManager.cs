@@ -18,7 +18,7 @@ namespace TextRPGing.Manager
             foreach (string message in _messageQueue)
                 sb.Append(message);
 
-            Console.WriteLine(sb.ToString());
+            Console.Write(sb.ToString());
         }
 
         public void PutToOutQueue(MessageToUI message)
