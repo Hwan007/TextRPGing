@@ -28,16 +28,12 @@ namespace TextRPGing.Scene
             switch(healingState)
             {
                 case HealingState.isHeal:
-                    DisplayRecoveryScene();
                     DisplayHeal(heal);
                     break;
                 case HealingState.isOut:
-                    DisplayRecoveryScene();
                     DisplayRoute();
                     break;
-
             }
-
         }
         public bool ActByInput(int input)
         {
@@ -46,6 +42,17 @@ namespace TextRPGing.Scene
                 tempHP = Character.Player.HP;
                 Character.Player.TakeHeal(30);
                 heal = Character.Player.HP - tempHP;
+                if (heal > 0)
+                {
+                    foreach (Item item in Character.Player.Inven.Items)
+                    {
+                        if (item.Type == Define.GameEnum.eItemType.Potion)
+                        {
+                            Character.Player.Inven.Items.Remove(item);
+                            break;
+                        }
+                    }
+                }
                 return true;
             }
             else if (input == 0 && healingState == HealingState.isHeal)
@@ -55,8 +62,14 @@ namespace TextRPGing.Scene
             }
             else if (healingState == HealingState.isOut)
             {
-                GameManager.SceneManager.ChangeScene((Define.GameEnum.eSceneType)input);
-                return true;
+                var Routes = GameManager.SceneManager.GetEnableScene();
+                if (Routes.Length >= input)
+                    return false;
+                else
+                {
+                    GameManager.SceneManager.ChangeScene(Routes[input]);
+                    return true;
+                }
             }
             return false;
         }
