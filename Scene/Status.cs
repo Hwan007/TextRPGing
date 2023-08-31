@@ -69,6 +69,7 @@ namespace TextRPGing.Scene
             MessageToUI message = new MessageToUI(Define.GameEnum.eSceneType.Status, sbs.ToArray());
             GameManager.UIManager.PutToOutQueue(message);
             GameManager.UIManager.DisplayUpdate();
+            GameManager.UIManager.ClearMessageQueue();
         }
     }
 }
