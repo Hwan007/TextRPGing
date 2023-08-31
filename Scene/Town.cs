@@ -45,6 +45,7 @@ namespace TextRPGing.Scene
 
         public void MainLoop()
         {
+            GameManager.UIManager.ConsoleClear();
             if (Character.Player == null)
             {
                 // 타이틀 출력
