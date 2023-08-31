@@ -39,7 +39,7 @@ namespace TextRPGing.Scene
             }
 
         }
-        public bool ActByInput(int input)
+        public bool ActByInput(int input, ref Define.GameEnum.eSceneType scene)
         {
             if (input == 1 && healingState == HealingState.isHeal)
             {
@@ -55,7 +55,7 @@ namespace TextRPGing.Scene
             }
             else if (healingState == HealingState.isOut)
             {
-                GameManager.SceneManager.ChangeScene((Define.GameEnum.eSceneType)input);
+                GameManager.SceneManager.ChangeScene(ref scene, (Define.GameEnum.eSceneType)input);
                 return true;
             }
             return false;

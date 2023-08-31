@@ -11,14 +11,14 @@ namespace TextRPGing.Scene
 {
     public class Status : Define.Interface.IScene
     {
-        public bool ActByInput(int input)
+        public bool ActByInput(int input, ref Define.GameEnum.eSceneType scene)
         {
             var Routes = GameManager.SceneManager.GetEnableScene();
             if (Routes.Length >= input)
                 return false;
             else
             {
-                GameManager.SceneManager.ChangeScene(Routes[input]);
+                GameManager.SceneManager.ChangeScene(ref scene, Routes[input]);
                 return true;
             }
         }

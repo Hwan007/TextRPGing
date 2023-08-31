@@ -18,14 +18,14 @@ namespace TextRPGing.Manager
         public Town TownScene { get => mScenes[(int)GameEnum.eSceneType.Town] as Town; }
 
         private int[,] mRoadMap;
-        private Define.GameEnum.eSceneType mCurrentScene;
+        private Define.GameEnum.eSceneType CurrentScene;
         private IScene[] mScenes;
 
         public SceneManager()
         {
             mRoadMap = new int[(int)GameEnum.eSceneType.End+1, (int)GameEnum.eSceneType.End+1];
             MapSetting();
-            mCurrentScene = GameEnum.eSceneType.Town;
+            CurrentScene = GameEnum.eSceneType.Town;
 
             mScenes = new IScene[(int)GameEnum.eSceneType.End+1];
             mScenes[(int)GameEnum.eSceneType.Town] = new Town();
@@ -36,27 +36,29 @@ namespace TextRPGing.Manager
         }
         public bool ActByInput(int input)
         {
-            return mScenes[(int)mCurrentScene].ActByInput(input);
+            int index = (int)CurrentScene;
+            bool ret = mScenes[index].ActByInput(input, ref CurrentScene);
+            return ret;
         }
         public void MainLoop()
         {
-            mScenes[(int)mCurrentScene].MainLoop();
+            mScenes[(int)CurrentScene].MainLoop();
         }
-        public void ChangeScene(Define.GameEnum.eSceneType sceneType)
+        public void ChangeScene(ref Define.GameEnum.eSceneType from, Define.GameEnum.eSceneType to)
         {
-            if (mRoadMap[(int)mCurrentScene, (int)sceneType] == 1)
+            if (mRoadMap[(int)CurrentScene, (int)to] == 1)
             {
-                mCurrentScene = sceneType;
+                from = to;
             }
             else
-                throw new Exception($"{mCurrentScene} -> {sceneType} 허락되지 않은 Scene 이동입니다.");
+                throw new Exception($"{CurrentScene} -> {to} 허락되지 않은 Scene 이동입니다.");
         }
         public Define.GameEnum.eSceneType[] GetEnableScene()
         {
             List<Define.GameEnum.eSceneType> ret = new List<Define.GameEnum.eSceneType>();
-            for (int i = 0; i < mRoadMap.GetLength((int)mCurrentScene);)
+            for (int i = 0; i < mRoadMap.GetLength((int)CurrentScene);++i)
             {
-                if (mRoadMap[(int)mCurrentScene, i] == 1)
+                if (mRoadMap[(int)CurrentScene, i] == 1 && (int)CurrentScene != i)
                     ret.Add((Define.GameEnum.eSceneType)i);
             }
             return ret.ToArray();
@@ -84,7 +86,7 @@ namespace TextRPGing.Manager
                         mRoadMap[i, (int)GameEnum.eSceneType.Battle] = 1;
                         mRoadMap[i, (int)GameEnum.eSceneType.Recovery] = 1;
                         mRoadMap[i, (int)GameEnum.eSceneType.SaveLoad] = 1;
-                        mRoadMap[i, (int)GameEnum.eSceneType.Town] = 1;
+                        mRoadMap[i, (int)GameEnum.eSceneType.Status] = 1;
                         break;
                     case GameEnum.eSceneType.End:
                         mRoadMap[i, (int)GameEnum.eSceneType.Town] = 1;
