@@ -32,7 +32,7 @@ namespace TextRPGing.Scene
             }
             else
             {
-                var Routes = GameManager.SceneManager.GetEnableScene();
+                var Routes = GameManager.SceneManager.GetEnableScene(Define.GameEnum.eSceneType.Town);
                 if (Routes.Length <= input)
                     return false;
                 else
@@ -98,7 +98,7 @@ namespace TextRPGing.Scene
         }
         private void AppendRoutes(ref StringBuilder sb)
         {
-            var routes = GameManager.SceneManager.GetEnableScene();
+            var routes = GameManager.SceneManager.GetEnableScene(Define.GameEnum.eSceneType.Town);
             for (int i = 0; i < routes.Length; ++i)
             {
                 sb.Append($"{i}. ");
