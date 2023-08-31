@@ -24,20 +24,16 @@ namespace TextRPGing.Scene
         public void MainLoop()
         {
             GameManager.UIManager.ConsoleClear();
-            DisplayRecoveryScene();        
-            switch(healingState)
+            DisplayRecoveryScene();
+            switch (healingState)
             {
                 case HealingState.isHeal:
-                    DisplayRecoveryScene();
                     DisplayHeal(heal);
                     break;
                 case HealingState.isOut:
-                    DisplayRecoveryScene();
                     DisplayRoute();
                     break;
-
             }
-
         }
         public bool ActByInput(int input, ref Define.GameEnum.eSceneType scene)
         {
@@ -46,6 +42,17 @@ namespace TextRPGing.Scene
                 tempHP = Character.Player.HP;
                 Character.Player.TakeHeal(30);
                 heal = Character.Player.HP - tempHP;
+                if (heal > 0)
+                {
+                    foreach (Item item in Character.Player.Inven.Items)
+                    {
+                        if (item.Type == Define.GameEnum.eItemType.Potion)
+                        {
+                            Character.Player.Inven.Items.Remove(item);
+                            break;
+                        }
+                    }
+                }
                 return true;
             }
             else if (input == 0 && healingState == HealingState.isHeal)
@@ -58,8 +65,18 @@ namespace TextRPGing.Scene
                 GameManager.SceneManager.ChangeScene(ref scene, (Define.GameEnum.eSceneType)input);
                 return true;
             }
-            return false;
+            var Routes = GameManager.SceneManager.GetEnableScene();
+            if (Routes.Length >= input)
+                return false;
+            else
+            {
+                scene = Routes[input];
+                return true;
+            }
         }
+            
+        
+
 
         private void DisplayRecoveryScene()
         {
