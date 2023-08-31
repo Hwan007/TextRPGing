@@ -10,7 +10,7 @@ using TextRPGing.Model;
 
 namespace TextRPGing.Scene
 {
-    internal class Battle : IScene
+    public class Battle : IScene
     {
         UIManager uIManager = new UIManager();
 
