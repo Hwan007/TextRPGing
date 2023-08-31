@@ -14,7 +14,7 @@ namespace TextRPGing.Scene
         public bool ActByInput(int input, ref Define.GameEnum.eSceneType scene)
         {
             var Routes = GameManager.SceneManager.GetEnableScene(scene);
-            if (Routes.Length >= input)
+            if (Routes.Length <= input)
                 return false;
             else
             {
@@ -69,6 +69,7 @@ namespace TextRPGing.Scene
             MessageToUI message = new MessageToUI(Define.GameEnum.eSceneType.Status, sbs.ToArray());
             GameManager.UIManager.PutToOutQueue(message);
             GameManager.UIManager.DisplayUpdate();
+            GameManager.UIManager.ClearMessageQueue();
         }
     }
 }
