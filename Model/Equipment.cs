@@ -10,10 +10,11 @@ namespace TextRPGing.Model
     {
         public int Id { get; set; }
         public List<Item> Items { get; private set; }
-        private Character mCharacter;
+        public Character mCharacter;
         public Equipment(Character character)
         {
             mCharacter = character;
+            Items = new List<Item>();
         }
         public override void EquipItem(Item item)
         {

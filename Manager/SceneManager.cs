@@ -14,6 +14,7 @@ namespace TextRPGing.Manager
         public Status StatusScene { get => mScenes[(int)GameEnum.eSceneType.Status] as Status; }
         public Battle BattleScene { get => mScenes[(int)GameEnum.eSceneType.Battle] as Battle; }
         public Recovery RecoveryScene { get => mScenes[(int)GameEnum.eSceneType.Recovery] as Recovery; }
+        public SInventory InventoryScene { get => mScenes[(int)GameEnum.eSceneType.Inventory] as SInventory; }
         public SaveLoad SaveLoadScene { get => mScenes[(int)GameEnum.eSceneType.SaveLoad] as SaveLoad; }
         public Town TownScene { get => mScenes[(int)GameEnum.eSceneType.Town] as Town; }
 
@@ -32,7 +33,9 @@ namespace TextRPGing.Manager
             mScenes[(int)GameEnum.eSceneType.Status] = new Status();
             mScenes[(int)GameEnum.eSceneType.Battle] = new Battle();
             mScenes[(int)GameEnum.eSceneType.Recovery] = new Recovery();
+            mScenes[(int)GameEnum.eSceneType.Inventory] = new SInventory();
             mScenes[(int)GameEnum.eSceneType.SaveLoad] = new SaveLoad();
+            mScenes[(int)GameEnum.eSceneType.Store] = new Store();
         }
         public bool ActByInput(int input)
         {
@@ -56,7 +59,7 @@ namespace TextRPGing.Manager
         public Define.GameEnum.eSceneType[] GetEnableScene(Define.GameEnum.eSceneType currentScene)
         {
             List<Define.GameEnum.eSceneType> ret = new List<Define.GameEnum.eSceneType>();
-            for (int i = 0; i < 6;++i)
+            for (int i = 0; i < (int)Define.GameEnum.eSceneType.End;++i)
             {
                 if (mRoadMap[(int)currentScene, i] == 1 && (int)currentScene != i)
                     ret.Add((Define.GameEnum.eSceneType)i);
@@ -65,19 +68,26 @@ namespace TextRPGing.Manager
         }
         private void MapSetting()
         {
-            for (int i = 0; i <= (int)GameEnum.eSceneType.SaveLoad; ++i)
+            for (int i = 0; i <= (int)GameEnum.eSceneType.End; ++i)
             {
                 mRoadMap[i, i] = 0;
                 switch ((Define.GameEnum.eSceneType)i)
                 {
                     case GameEnum.eSceneType.Status:
                         mRoadMap[i, (int)GameEnum.eSceneType.Town] = 1;
+                        mRoadMap[i, (int)GameEnum.eSceneType.Store] = 1;
                         break;
                     case GameEnum.eSceneType.Battle:
                         mRoadMap[i, (int)GameEnum.eSceneType.Town] = 1;
                         break;
                     case GameEnum.eSceneType.Recovery:
                         mRoadMap[i, (int)GameEnum.eSceneType.Town] = 1;
+                        mRoadMap[i, (int)GameEnum.eSceneType.Status] = 1;
+                        mRoadMap[i, (int)GameEnum.eSceneType.Store] = 1;
+                        break;
+                    case GameEnum.eSceneType.Inventory:
+                        mRoadMap[i, (int)GameEnum.eSceneType.Town] = 1;
+                        mRoadMap[i, (int)GameEnum.eSceneType.Status] = 1;
                         break;
                     case GameEnum.eSceneType.SaveLoad:
                         mRoadMap[i, (int)GameEnum.eSceneType.Town] = 1;
@@ -85,7 +95,14 @@ namespace TextRPGing.Manager
                     case GameEnum.eSceneType.Town:
                         mRoadMap[i, (int)GameEnum.eSceneType.Battle] = 1;
                         mRoadMap[i, (int)GameEnum.eSceneType.Recovery] = 1;
+                        mRoadMap[i, (int)GameEnum.eSceneType.Inventory] = 1;
                         mRoadMap[i, (int)GameEnum.eSceneType.SaveLoad] = 1;
+                        mRoadMap[i, (int)GameEnum.eSceneType.Status] = 1;
+                        mRoadMap[i, (int)GameEnum.eSceneType.Store] = 1;
+                        break;
+                    case GameEnum.eSceneType.Store:
+                        mRoadMap[i, (int)GameEnum.eSceneType.Town] = 1;
+                        mRoadMap[i, (int)GameEnum.eSceneType.Recovery] = 1;
                         mRoadMap[i, (int)GameEnum.eSceneType.Status] = 1;
                         break;
                     case GameEnum.eSceneType.End:

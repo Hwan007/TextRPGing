@@ -10,5 +10,15 @@ namespace TextRPGing.Model
     {
         public int ATK { get; set; }
         public float CRT { get; set; }
+        public Weapon(string name, string description, int atk, float crt, int price)
+        {
+            Name = name;
+            Description = description;
+            ATK = atk;
+            CRT = crt;
+            Price = price;
+            Type = Define.GameEnum.eItemType.Weapon;
+            Id = new Random().Next(0, 99999);
+        }
     }
 }

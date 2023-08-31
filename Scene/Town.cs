@@ -23,6 +23,7 @@ namespace TextRPGing.Scene
                 if (name != null && job.HasValue)
                 {
                     Character.Player = new Character(name, job.Value);
+                    Character.Player.Equip.mCharacter = Character.Player;
                     SendToUIManager($"내일배움캠프에 온 것을 환영하오.");
                     GameManager.UIManager.DisplayUpdate();
                     GameManager.UIManager.ClearMessageQueue();
@@ -113,8 +114,14 @@ namespace TextRPGing.Scene
                     case Define.GameEnum.eSceneType.Recovery:
                         sb.Append($"포션 사용\n");
                         break;
+                    case Define.GameEnum.eSceneType.Inventory:
+                        sb.Append($"인벤토리\n");
+                        break;
                     case Define.GameEnum.eSceneType.SaveLoad:
                         sb.Append($"저장하기/불러오기\n");
+                        break;
+                    case Define.GameEnum.eSceneType.Store:
+                        sb.Append("상점\n");
                         break;
                     default:
                         sb.Append($"오류입니다. 수정해주세요.\n");

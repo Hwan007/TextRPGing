@@ -8,7 +8,9 @@
             Status,
             Battle,
             Recovery,
+            Inventory,
             SaveLoad,
+            Store,
             End
         }
 
