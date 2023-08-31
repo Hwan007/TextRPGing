@@ -14,7 +14,7 @@ namespace TextRPGing.Scene
         public bool ActByInput(int input, ref Define.GameEnum.eSceneType scene)
         {
             var Routes = GameManager.SceneManager.GetEnableScene(scene);
-            if (Routes.Length >= input)
+            if (Routes.Length <= input && input < 0)
                 return false;
             else
             {
