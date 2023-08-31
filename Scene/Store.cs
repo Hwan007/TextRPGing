@@ -194,48 +194,50 @@ namespace TextRPGing.Scene
             StringBuilder sb = new StringBuilder();
             StringBuilder tempStr = new StringBuilder();
             var routes = GameManager.SceneManager.GetEnableScene(Define.GameEnum.eSceneType.Store);
-            for (int i = routes.Length; i < Items.Count + routes.Length; ++i)
+            for (int i = routes.Length; i < itmes.Count + routes.Length; ++i)
             {
+                int index = i - routes.Length;
+                tempStr.Clear();
                 // 번호
                 if (i > 9)
                     sb.Append($"[{i}]");
                 else
                     sb.Append($"[{i}] ");
                 // 이름
-                tempStr.Append(Items[i].Name);
+                tempStr.Append(itmes[index].Name);
                 tempStr.Append(Fit(tempStr.ToString(), 16));
                 sb.Append(tempStr + " | ");
                 // 능력치
                 tempStr.Clear();
-                if (Items[i] is Weapon)
+                if (itmes[index] is Weapon)
                 {
-                    var item = Items[i] as Weapon;
+                    var item = itmes[index] as Weapon;
                     tempStr.Append("공격력 +" + item.ATK);
                 }
-                else if (Items[i] is Armor)
+                else if (itmes[index] is Armor)
                 {
-                    var item = Items[i] as Armor;
+                    var item = itmes[index] as Armor;
                     tempStr.Append("방어력 +" + item.DEF);
                 }
-                else if (Items[i] is Potion)
+                else if (itmes[index] is Potion)
                 {
-                    var item = Items[i] as Potion;
+                    var item = itmes[index] as Potion;
                     tempStr.Append("회복력 +" + item.Heal);
                 }
                 tempStr.Append(Fit(tempStr.ToString(), 12));
                 sb.Append(tempStr + " | ");
                 // 설명
                 tempStr.Clear();
-                tempStr.Append($"{Items[i].Description}");
+                tempStr.Append($"{itmes[index].Description}");
                 tempStr.Append(Fit(tempStr.ToString(), 40));
                 sb.Append(tempStr + " | ");
                 // 금액
                 if (mState == eState.Buy)
-                    sb.Append($"{Items[i].Price}" + "\n");
+                    sb.Append($"{itmes[index].Price}\n");
                 else
-                    sb.Append($"{Items[i].Price * 85 / 100}" + "\n");
+                    sb.Append($"{itmes[index].Price * 85 / 100}\n");
             }
-
+            sb.Append("\n\n");
             return sb.ToString();
         }
     }
