@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,22 +13,54 @@ namespace TextRPGing.Scene
 {
     public class SInventory : IScene
     {
-        private enum invenState
+        private enum InvenState
         {
             basic,
             changeItem,
             changeOrder
         }
-        
+
+        InvenState state = InvenState.basic;
+
+        int index = 0;
         public void MainLoop()
         {
             GameManager.UIManager.ConsoleClear();
             Item[] items = Character.Player.Inven.GetAllItem();
-            DisplayItems(items);
+
+            switch (state)
+            {
+                case InvenState.basic:
+                    DisplayItems(items);
+                    DisplayRoute();
+                    break;
+                case InvenState.changeItem:
+                    ChangeItems(items);
+                    break;
+            }
+            
         }
 
         public bool ActByInput(int input, ref Define.GameEnum.eSceneType scene)
         {
+            if (input == index)
+            {
+                state = InvenState.changeItem;
+                return true;
+            }
+    
+            else if (input >= 0 && input < index)
+            {
+                var Routes = GameManager.SceneManager.GetEnableScene(scene);
+                if (Routes.Length <= input || input < 0)
+                    return false;
+                else
+                {
+                    scene = Routes[input];
+                    state = InvenState.basic;
+                    return true;
+                }
+            }
             return false;
         }
 
@@ -36,48 +69,201 @@ namespace TextRPGing.Scene
             int nameLength;
             byte[] data;
             int blank;
-            string message = "인벤토리\n캐릭터의 아이템을 관리합니다.\n";
+            string message = "인벤토리\n캐릭터의 아이템을 관리합니다.\n\n";
            
             foreach (Item item in items)
             {
-                    string itemName = item.Name;
-                    data = Encoding.Unicode.GetBytes(itemName);
-                    nameLength = data.Length;
-                    blank = (30 - nameLength) / 2;
-                    for (int i = 0; i < 2; i++)
+                string itemName = item.Name;
+                data = Encoding.Unicode.GetBytes(itemName);
+                nameLength = data.Length;
+                blank = (30 - nameLength) / 2;
+                for (int i = 0; i < 2; i++)
+                {
+                    for (int j = 0; j < blank; j++)
                     {
-                        for (int j = 0; j < blank; j++)
-                        {
-                            message += " ";
-                        }
-                        if (i == 1)
-                            break;
-                        message += $"{item.Name}";
+                        message += " ";
                     }
+                    if (i == 1)
+                        break;
+                    message += $"{item.Name}";
+                }
+                message += "|";
+                switch(item.Type)
+                {
+                    case Define.GameEnum.eItemType.Weapon:
+                        data = Encoding.Unicode.GetBytes($"ATK +{((Weapon)item).ATK}");
+                        nameLength = data.Length;
+                        blank = (30 - nameLength) / 2;
 
-                    //data = Encoding.Unicode.GetBytes($"ATK +{item.ATK}");
-                    //nameLength = data.Length;
-                    //blank = (30 - nameLength) / 2;
+                        for (int i = 0; i < 2; i++)
+                        {
+                            for (int j = 0; j < blank; j++)
+                            {
+                                message += " ";
+                            }
+                            if (i == 1)
+                                break;
+                            message += $"ATK +{((Weapon)item).ATK}  CRT +{((Weapon)item).CRT}";
+                        }
+                        break;
+                    case Define.GameEnum.eItemType.Armor:
+                        data = Encoding.Unicode.GetBytes($"ATK +{((Armor)item).DEF}");
+                        nameLength = data.Length;
+                        blank = (30 - nameLength) / 2;
 
-                    //for (int i = 0; i < 2; i++)
-                    //{
-                    //    for (int j = 0; j < blank; j++)
-                    //    {
-                    //        message += " ";
-                    //    }
-                    //    if (i == 1)
-                    //        break;
-                    //    message += $"ATK +{item.ATK}";
-                    //}
-                    message += $"|\t{item.Description}\n";
+                        for (int i = 0; i < 2; i++)
+                        {
+                            for (int j = 0; j < blank; j++)
+                            {
+                                message += " ";
+                            }
+                            if (i == 1)
+                                break;
+                            message += $"DEF +{((Armor)item).DEF}  AVD +{((Armor)item).AVD}";
+                        }
+                        break;
+                    case Define.GameEnum.eItemType.Potion:
+                        data = Encoding.Unicode.GetBytes($"회복량  30");
+                        nameLength = data.Length;
+                        blank = (38 - nameLength) / 2;
+
+                        for (int i = 0; i < 2; i++)
+                        {
+                            for (int j = 0; j < blank; j++)
+                            {
+                                message += " ";
+                            }
+                            if (i == 1)
+                                break;
+                            message += $"회복량 +30";
+                        }
+                        break;
+
+                }
+                
+                message += $"|\t{item.Description}\n";
                 }
 
             MessageToUIManager(message);
         }
 
-            
+        public void ChangeItems(Item[] items)
+        {
+            int nameLength;
+            byte[] data;
+            int blank;
+            string message = "인벤토리\n캐릭터의 아이템을 관리합니다.\n\n";
+            index = 0;
+            foreach (Item item in items)
+            {
+                message += $"{index}.";
+                index++;
+                string itemName = item.Name;
+                data = Encoding.Unicode.GetBytes(itemName);
+                nameLength = data.Length;
+                blank = (30 - nameLength) / 2;
+                for (int i = 0; i < 2; i++)
+                {
+                    for (int j = 0; j < blank; j++)
+                    {
+                        message += " ";
+                    }
+                    if (i == 1)
+                        break;
+                    message += $"{item.Name}";
+                }
+                message += "|";
+                switch (item.Type)
+                {
+                    case Define.GameEnum.eItemType.Weapon:
+                        data = Encoding.Unicode.GetBytes($"ATK +{((Weapon)item).ATK}");
+                        nameLength = data.Length;
+                        blank = (30 - nameLength) / 2;
 
-        
+                        for (int i = 0; i < 2; i++)
+                        {
+                            for (int j = 0; j < blank; j++)
+                            {
+                                message += " ";
+                            }
+                            if (i == 1)
+                                break;
+                            message += $"ATK +{((Weapon)item).ATK}  CRT +{((Weapon)item).CRT}";
+                        }
+                        break;
+                    case Define.GameEnum.eItemType.Armor:
+                        data = Encoding.Unicode.GetBytes($"ATK +{((Armor)item).DEF}");
+                        nameLength = data.Length;
+                        blank = (30 - nameLength) / 2;
+
+                        for (int i = 0; i < 2; i++)
+                        {
+                            for (int j = 0; j < blank; j++)
+                            {
+                                message += " ";
+                            }
+                            if (i == 1)
+                                break;
+                            message += $"DEF +{((Armor)item).DEF}  AVD +{((Armor)item).AVD}";
+                        }
+                        break;
+                    case Define.GameEnum.eItemType.Potion:
+                        data = Encoding.Unicode.GetBytes($"회복량  30");
+                        nameLength = data.Length;
+                        blank = (38 - nameLength) / 2;
+
+                        for (int i = 0; i < 2; i++)
+                        {
+                            for (int j = 0; j < blank; j++)
+                            {
+                                message += " ";
+                            }
+                            if (i == 1)
+                                break;
+                            message += $"회복량 +30";
+                        }
+                        break;
+
+                }
+
+                message += $"|\t{item.Description}\n";
+            }
+
+            MessageToUIManager(message);
+        }
+
+        private void DisplayRoute()
+        {
+            index = 0;
+            string message = "";
+            Define.GameEnum.eSceneType[] routeList = GameManager.SceneManager.GetEnableScene(Define.GameEnum.eSceneType.Inventory);
+            foreach (var route in routeList)
+            {
+                //message += $"{index}. " + routeList[index] + "\n";
+                switch (route)
+                {
+                    case Define.GameEnum.eSceneType.Town:
+                        message += $"{index}. 나가기\n";
+                        break;
+                    case Define.GameEnum.eSceneType.Status:
+                        message += $"{index}. 상태보기\n";
+                        break;
+                    default:
+                        message += $"{index}. 오류입니다. 수정하세요.\n";
+                        break;
+                }
+                index++;
+            }
+            message += $"{index}. 아이템 관리\r\n" +
+                       "원하는 행동을 입력해주세요.\r\n" +
+                       ">> ";
+            MessageToUIManager(message);
+
+        }
+
+
+
+
         private void MessageToUIManager(string message)
         {
             MessageToUI messageToUi = new MessageToUI(
