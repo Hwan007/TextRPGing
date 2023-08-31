@@ -102,6 +102,7 @@ namespace TextRPGing.Scene
                         break;
                 }
             }
+            sb.Append("\n");
         }
         private string CheckName()
         {
