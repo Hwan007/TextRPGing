@@ -10,5 +10,15 @@ namespace TextRPGing.Model
     {
         public int DEF { get; set; }
         public float AVD { get; set; }
+
+        public Armor(string name, string description, int def, float avd, int price)
+        {
+            Name = name;
+            Description = description;
+            DEF = def;
+            AVD = avd;
+            Price = price;
+            Type = Define.GameEnum.eItemType.Armor;
+        }
     }
 }
