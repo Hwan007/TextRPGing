@@ -90,19 +90,19 @@ namespace TextRPGing.Scene
             // 행선지 출력
             // 0 나가기
             // 1 판매
-            for (int i = 0; i < routes.Length; ++i)
+            for (int i = 0; i < routes.Length+1; ++i)
             {
                 sb.Append($"{i}. ");
                 if (i == 1)
                 {
                     if (mState == eState.Sell)
-                        sb.Append("1. 구매\n");
+                        sb.Append("구매\n");
                     else
-                        sb.Append("1. 판매\n");
-                    ++i;
+                        sb.Append("판매\n");
                     continue;
                 }
-                switch (routes[i])
+                int index = i > 1 ? i - 1 : 0;
+                switch (routes[index])
                 {
                     case GameEnum.eSceneType.Town:
                         sb.Append("나가기\n");
@@ -118,6 +118,9 @@ namespace TextRPGing.Scene
                         break;
                     case GameEnum.eSceneType.SaveLoad:
                         sb.Append("저장하기/불러오기\n");
+                        break;
+                    case GameEnum.eSceneType.Recovery:
+                        sb.Append("휴식하기\n");
                         break;
                     default:
                         sb.Append("오류입니다 수정해주세요.\n");
