@@ -14,6 +14,7 @@ namespace TextRPGing.Scene
         public bool ActByInput(int input, ref Define.GameEnum.eSceneType scene)
         {
             var Routes = GameManager.SceneManager.GetEnableScene(scene);
+            if (Routes.Length <= input)
             if (Routes.Length <= input && input < 0)
                 return false;
             else
@@ -25,6 +26,7 @@ namespace TextRPGing.Scene
 
         public void MainLoop()
         {
+            GameManager.UIManager.ConsoleClear();
             List<string> sbs = new List<string>();
             StringBuilder sb = new StringBuilder();
             // 타이틀 출력

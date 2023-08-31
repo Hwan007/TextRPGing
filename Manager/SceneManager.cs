@@ -46,7 +46,7 @@ namespace TextRPGing.Manager
         }
         public void ChangeScene(ref Define.GameEnum.eSceneType from, Define.GameEnum.eSceneType to)
         {
-            if (mRoadMap[(int)CurrentScene, (int)to] == 1)
+            if (mRoadMap[(int)from, (int)to] == 1)
             {
                 from = to;
             }
