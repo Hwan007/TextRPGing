@@ -18,6 +18,7 @@ namespace TextRPGing.Model
         {
             Id = id;
             Items = items;
+            Gold = 0;
         }
     }
 }

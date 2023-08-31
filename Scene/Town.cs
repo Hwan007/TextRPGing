@@ -14,7 +14,7 @@ namespace TextRPGing.Scene
         private string[] jobs = { "전사", "도적", "궁수", "마법사" };
         private string name;
         private Define.GameEnum.eCharacterClass? job;
-        public bool ActByInput(int input)
+        public bool ActByInput(int input, ref Define.GameEnum.eSceneType scene)
         {
             if (Character.Player == null)
             {
@@ -33,11 +33,11 @@ namespace TextRPGing.Scene
             else
             {
                 var Routes = GameManager.SceneManager.GetEnableScene();
-                if (Routes.Length >= input)
+                if (Routes.Length <= input)
                     return false;
                 else
                 {
-                    GameManager.SceneManager.ChangeScene(Routes[input]);
+                    GameManager.SceneManager.ChangeScene(ref scene, Routes[input]);
                     return true;
                 }
             }
@@ -45,6 +45,7 @@ namespace TextRPGing.Scene
 
         public void MainLoop()
         {
+            GameManager.UIManager.ConsoleClear();
             if (Character.Player == null)
             {
                 // 타이틀 출력
