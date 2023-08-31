@@ -9,6 +9,7 @@
             Battle,
             Recovery,
             SaveLoad,
+            Store,
             End
         }
 
