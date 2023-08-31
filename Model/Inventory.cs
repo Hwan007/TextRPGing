@@ -7,7 +7,9 @@ namespace TextRPGing.Model
     {
         public int Id { get; set; }
         public List<Item> Items { get; set; } = new List<Item>();
+
         public int Gold { get; set; }
+
         public Inventory()
         {
         }
