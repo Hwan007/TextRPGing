@@ -116,13 +116,13 @@ namespace TextRPGing.Scene
                 switch (route)
                 {
                     case Define.GameEnum.eSceneType.Town:
-                        message += $"{index}.  나가기\n";
+                        message += $"{index}. 나가기\n";
                         break;
                     case Define.GameEnum.eSceneType.Status:
-                        message += $"{index}.  상태보기\n";
+                        message += $"{index}. 상태보기\n";
                         break;
                     default:
-                        message += $"{index}.  오류입니다. 수정하세요.\n";
+                        message += $"{index}. 오류입니다. 수정하세요.\n";
                         break;
                 }
                 index++;
