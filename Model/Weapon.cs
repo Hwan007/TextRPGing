@@ -3,21 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TextRPGing.Define;
 
 namespace TextRPGing.Model
 {
     public class Weapon : Item
     {
-
         public int ATK { get; set; }
         public float CRT { get; set; }
-        
-        
-        public Weapon()
-        {
-        }
-
         public Weapon(string name, string description, int atk, float crt, int price)
         {
             Name = name;
@@ -26,6 +18,7 @@ namespace TextRPGing.Model
             CRT = crt;
             Price = price;
             Type = Define.GameEnum.eItemType.Weapon;
+            Id = new Random().Next(0, 99999);
         }
     }
 }

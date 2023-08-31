@@ -36,6 +36,7 @@ namespace TextRPGing.Scene
                     break;
                 case InvenState.changeItem:
                     ChangeItems(items);
+                    DisplayRoute();
                     break;
             }
             
@@ -43,13 +44,16 @@ namespace TextRPGing.Scene
 
         public bool ActByInput(int input, ref Define.GameEnum.eSceneType scene)
         {
-            if (input == index)
+            if (input == index && state == InvenState.basic)
             {
                 state = InvenState.changeItem;
                 return true;
             }
-    
-            else if (input >= 0 && input < index)
+            else if (input >= 0 && input < Character.Player.Inven.Items.Count)
+            {
+                Character.Player.Equip.EquipItem(Character.Player.Inven.Items[input]);
+            }
+            else if (input >= 0 && input < index && state == InvenState.basic)
             {
                 var Routes = GameManager.SceneManager.GetEnableScene(scene);
                 if (Routes.Length <= input || input < 0)
@@ -66,6 +70,7 @@ namespace TextRPGing.Scene
 
         public void DisplayItems(Item[] items)
         {
+            index = 0;
             int nameLength;
             byte[] data;
             int blank;
@@ -234,7 +239,6 @@ namespace TextRPGing.Scene
 
         private void DisplayRoute()
         {
-            index = 0;
             string message = "";
             Define.GameEnum.eSceneType[] routeList = GameManager.SceneManager.GetEnableScene(Define.GameEnum.eSceneType.Inventory);
             foreach (var route in routeList)
