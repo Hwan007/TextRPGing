@@ -64,6 +64,7 @@ namespace TextRPGing.Scene
                 sb.Clear();
                 sb.Append($"내일배움캠프\n");
                 sb.Append($"평화로운 캠프로 보이지만, 그 뒤에는 튜터분들과 매니저분들의 노력이 있다.\n\n");
+                sbs.Add(sb.ToString());
 
                 // 이벤트 출력
                 //sb.Clear();
@@ -71,9 +72,10 @@ namespace TextRPGing.Scene
                 //sbs.Add(sb.ToString());
 
                 // 행선지 출력
+                sb.Clear();
                 AppendRoutes(ref sb);
-
                 sbs.Add(sb.ToString());
+
                 SendToUIManager(sbs.ToArray());
                 GameManager.UIManager.DisplayUpdate();
             }
