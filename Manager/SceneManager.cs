@@ -35,6 +35,7 @@ namespace TextRPGing.Manager
             mScenes[(int)GameEnum.eSceneType.Recovery] = new Recovery();
             mScenes[(int)GameEnum.eSceneType.Inventory] = new SInventory();
             mScenes[(int)GameEnum.eSceneType.SaveLoad] = new SaveLoad();
+            mScenes[(int)GameEnum.eSceneType.Store] = new Store();
         }
         public bool ActByInput(int input)
         {
@@ -67,13 +68,14 @@ namespace TextRPGing.Manager
         }
         private void MapSetting()
         {
-            for (int i = 0; i <= (int)GameEnum.eSceneType.SaveLoad; ++i)
+            for (int i = 0; i <= (int)GameEnum.eSceneType.End; ++i)
             {
                 mRoadMap[i, i] = 0;
                 switch ((Define.GameEnum.eSceneType)i)
                 {
                     case GameEnum.eSceneType.Status:
                         mRoadMap[i, (int)GameEnum.eSceneType.Town] = 1;
+                        mRoadMap[i, (int)GameEnum.eSceneType.Store] = 1;
                         break;
                     case GameEnum.eSceneType.Battle:
                         mRoadMap[i, (int)GameEnum.eSceneType.Town] = 1;
@@ -81,6 +83,7 @@ namespace TextRPGing.Manager
                     case GameEnum.eSceneType.Recovery:
                         mRoadMap[i, (int)GameEnum.eSceneType.Town] = 1;
                         mRoadMap[i, (int)GameEnum.eSceneType.Status] = 1;
+                        mRoadMap[i, (int)GameEnum.eSceneType.Store] = 1;
                         break;
                     case GameEnum.eSceneType.Inventory:
                         mRoadMap[i, (int)GameEnum.eSceneType.Town] = 1;
@@ -94,6 +97,12 @@ namespace TextRPGing.Manager
                         mRoadMap[i, (int)GameEnum.eSceneType.Recovery] = 1;
                         mRoadMap[i, (int)GameEnum.eSceneType.Inventory] = 1;
                         mRoadMap[i, (int)GameEnum.eSceneType.SaveLoad] = 1;
+                        mRoadMap[i, (int)GameEnum.eSceneType.Status] = 1;
+                        mRoadMap[i, (int)GameEnum.eSceneType.Store] = 1;
+                        break;
+                    case GameEnum.eSceneType.Store:
+                        mRoadMap[i, (int)GameEnum.eSceneType.Town] = 1;
+                        mRoadMap[i, (int)GameEnum.eSceneType.Recovery] = 1;
                         mRoadMap[i, (int)GameEnum.eSceneType.Status] = 1;
                         break;
                     case GameEnum.eSceneType.End:

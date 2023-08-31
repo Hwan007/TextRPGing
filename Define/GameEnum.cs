@@ -10,6 +10,7 @@
             Recovery,
             Inventory,
             SaveLoad,
+            Store,
             End
         }
 
