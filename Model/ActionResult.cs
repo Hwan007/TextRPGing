@@ -21,7 +21,7 @@ namespace TextRPGing.Model
         public ActionResult GetDamage(int atk, int def, float crt, float avd)
         {
             // 데미지 계산식
-            int Damage = 
+            throw new NotImplementedException();
         }
     }
 }
