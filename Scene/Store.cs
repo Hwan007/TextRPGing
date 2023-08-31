@@ -89,6 +89,9 @@ namespace TextRPGing.Scene
                 sb.Append($"상점 - 판매\n");
             sb.Append($"아이템을 사고 팔 수 있습니다.\n\n");
 
+            // StoreItem.json 파일에서 아이템 불러오기
+            LoadItemFromStore();
+
             // 아이템 리스트 출력
             // 번호 | 이름 | 능력치 | 설명 | 금액
             if (mState == eState.Buy)
@@ -138,6 +141,11 @@ namespace TextRPGing.Scene
             }
 
             MessageAndUpdate(sb.ToString());
+        }
+
+        private void LoadItemFromStore()
+        {
+            throw new NotImplementedException();
         }
 
         public void AddItemToStore(Item[] itmes)
