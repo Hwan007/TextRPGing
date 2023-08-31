@@ -68,7 +68,7 @@ namespace TextRPGing.Model
             }
             Inven = new Inventory();
             Equip = new Equipment(Player);
-            Inven.Items.Add(new Potion());
+            Inven.Items.Add(new Potion(1, "포션", Define.GameEnum.eItemType.Potion, "포션", 100));
         }
 
         public override void ReStat()
