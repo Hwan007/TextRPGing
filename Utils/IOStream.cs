@@ -8,7 +8,7 @@ namespace TextRPGing.Utils
     public class IOStream
     {
         private const string PLAYER_FILE_PATH = "../../../Data/PlayerData.json";
-        private const string SHOP_ITEM_FILE_PATH = "../../../Data/ShopItem.json";
+        private const string STORE_ITEM_FILE_PATH = "../../../Data/StoreItem.json";
 
         private const string DATA_FILE_DIR = "../../../Data/";
 
@@ -36,13 +36,13 @@ namespace TextRPGing.Utils
             return player;
         }
 
-        public static List<Item> LoadShopItem()
+        public static List<Item> LoadStoreItem()
         {
             List<Item> items = null;
             DirectoryInfo di = new DirectoryInfo(DATA_FILE_DIR);
-            if (di.Exists && File.Exists(SHOP_ITEM_FILE_PATH))
+            if (di.Exists && File.Exists(STORE_ITEM_FILE_PATH))
             {
-                string json = File.ReadAllText(SHOP_ITEM_FILE_PATH);
+                string json = File.ReadAllText(STORE_ITEM_FILE_PATH);
                 items = JsonConvert.DeserializeObject<List<Item>>(json);
             }
 
