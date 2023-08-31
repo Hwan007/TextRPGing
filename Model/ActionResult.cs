@@ -9,9 +9,6 @@ namespace TextRPGing.Model
 {
     public class ActionResult
     {
-        IAction action;
-        public string Name { get; set; }
-
         public ActionResult Result { get; set; }
         public ActionResult()
         {

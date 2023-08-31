@@ -22,9 +22,10 @@
 
         public enum eSkillType
         {
-            Potion,
-            Armor,
-            Weapon
+            warrior_skill,
+            thief_skill,
+            archor_skill,
+            magician_skill
         }
 
         public enum eCharacterClass

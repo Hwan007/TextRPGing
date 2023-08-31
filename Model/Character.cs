@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TextRPGing.Controller;
+using TextRPGing.Define;
 using TextRPGing.Define.Interface;
 
 namespace TextRPGing.Model
@@ -20,6 +21,7 @@ namespace TextRPGing.Model
         public int DEF { get; set; }
         public float CRT { get; set; }
         public float AVD { get; set; }
+        public string Skill { get; set; }
         public Inventory Inven { get; set; }
         public Equipment Equip { get; set; }
         public Define.GameEnum.eCharacterClass Job { get; set; }
@@ -40,14 +42,16 @@ namespace TextRPGing.Model
                     DEF = 10;
                     CRT = 0.25f;
                     AVD = 0f;
+                    Skill = GameEnum.eSkillType.warrior_skill.ToString();
                     break;
                 case Define.GameEnum.eCharacterClass.Thief:
-                    HP = 15;
+                    HP = 10;
                     MaxHP = 15;
                     ATK = 13;
                     DEF = 8;
                     CRT = 0.50f;
                     AVD = 0f;
+                    Skill = GameEnum.eSkillType.thief_skill.ToString();
                     break;
                 case Define.GameEnum.eCharacterClass.Archer:
                     HP = 15;
@@ -56,6 +60,7 @@ namespace TextRPGing.Model
                     DEF = 7;
                     CRT = 0.35f;
                     AVD = 0f;
+                    Skill = GameEnum.eSkillType.archor_skill.ToString();
                     break;
                 case Define.GameEnum.eCharacterClass.Magician:
                     HP = 10;
@@ -64,6 +69,7 @@ namespace TextRPGing.Model
                     DEF = 6;
                     CRT = 0.25f;
                     AVD = 0f;
+                    Skill = GameEnum.eSkillType.magician_skill.ToString();
                     break;
             }
             Inven = new Inventory();
@@ -91,7 +97,7 @@ namespace TextRPGing.Model
 
         public override void TakeDamage(int  damage)
         {
-            HP -= (int)((damage - DEF) * AVD); //임의로 데미지 계산 식 만들어놨습니다. 마음껏 변경하셔도 됩니다.
+            HP -= damage; //임의로 데미지 계산 식 만들어놨습니다. 마음껏 변경하셔도 됩니다.
         }
 
         public override void TakeHeal(int heal)
