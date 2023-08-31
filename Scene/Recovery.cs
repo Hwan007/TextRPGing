@@ -24,8 +24,8 @@ namespace TextRPGing.Scene
         public void MainLoop()
         {
             GameManager.UIManager.ConsoleClear();
-            DisplayRecoveryScene();        
-            switch(healingState)
+            DisplayRecoveryScene();
+            switch (healingState)
             {
                 case HealingState.isHeal:
                     DisplayHeal(heal);
@@ -65,17 +65,18 @@ namespace TextRPGing.Scene
                 GameManager.SceneManager.ChangeScene(ref scene, (Define.GameEnum.eSceneType)input);
                 return true;
             }
-                var Routes = GameManager.SceneManager.GetEnableScene();
-                if (Routes.Length >= input)
-                    return false;
-                else
-                {
-                    GameManager.SceneManager.ChangeScene(Routes[input]);
-                    return true;
-                }
+            var Routes = GameManager.SceneManager.GetEnableScene();
+            if (Routes.Length >= input)
+                return false;
+            else
+            {
+                scene = Routes[input];
+                return true;
             }
-            return false;
         }
+            
+        
+
 
         private void DisplayRecoveryScene()
         {
