@@ -49,6 +49,8 @@ namespace TextRPGing.Manager
                     else
                         break;
                 }
+                else
+                    break;
             }
         }
 
