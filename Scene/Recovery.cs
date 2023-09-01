@@ -121,6 +121,9 @@ namespace TextRPGing.Scene
                     case Define.GameEnum.eSceneType.Status:
                         message += $"{index}. 상태보기\n";
                         break;
+                    case Define.GameEnum.eSceneType.Inventory:
+                        message += $"{index}. 상태보기\n";
+                        break;
                     default:
                         message += $"{index}. 오류입니다. 수정하세요.\n";
                         break;
