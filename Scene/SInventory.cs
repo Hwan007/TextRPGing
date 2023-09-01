@@ -65,45 +65,6 @@ namespace TextRPGing.Scene
                 state = InvenState.changeItem;
                 return true;
             }
-            else if (input == index && state == InvenState.basic)
-            {
-                state = InvenState.changeOrder;
-                return true;
-            }
-            else if (input >= 0 && input <= index && state == InvenState.changeOrder && isChanging == false)
-            {
-                method = (OrderMethod)input;
-                isChanging = true;
-                return true;
-            }
-            else if (input == 1 || input == 2 && isChanging == true)
-            {
-                switch (method)
-                {
-                    case OrderMethod.name:
-                        if (input == 1)
-                        {
-                            Character.Player.Equip.Items = Character.Player.Equip.Items.OrderBy(item => item.Name).ToList();
-                        }
-                        else
-                        {
-                            Character.Player.Equip.Items = Character.Player.Equip.Items.OrderByDescending(item => item.Name).ToList();
-                        }                        
-                        break;
-                    case OrderMethod.atk:
-                        if (input == 1)
-                        {
-                            Character.Player.Equip.Items = Character.Player.Equip.Items.OrderBy(item => item.Type).ToList();
-                            int itemNum = 0;
-
-                        }
-                        else
-                        {
-                            Character.Player.Equip.Items = Character.Player.Equip.Items.OrderByDescending(item => item.Name).ToList();
-                        }
-                        break;
-                }
-            }
             else if (input >= 0 && input < Character.Player.Inven.Items.Count && state == InvenState.changeItem)
             {
                 if (Character.Player.Inven.Items[input].Type != Define.GameEnum.eItemType.Potion)
@@ -118,6 +79,51 @@ namespace TextRPGing.Scene
                     return true;
                 }
             }
+            else if (input == index && state == InvenState.basic)
+            {
+                state = InvenState.changeOrder;
+                return true;
+            }
+            else if (input >= 0 && input <= index && state == InvenState.changeOrder && isChanging == false)
+            {
+                method = (OrderMethod)input;
+                isChanging = true;
+                return true;
+            }
+            else if (input == 1 || input == 2 && isChanging == true && state == InvenState.changeOrder)
+            {
+                switch (method)
+                {
+                    case OrderMethod.name:
+                        if (input == 1)
+                        {
+                            Character.Player.Equip.Items = Character.Player.Equip.Items.OrderBy(item => item.Name.Length).ToList();
+                        }
+                        else
+                        {
+                            Character.Player.Equip.Items = Character.Player.Equip.Items.OrderByDescending(item => item.Name.Length).ToList();
+                        }
+                        isChanging = false;
+                        state = InvenState.basic;
+                        break;
+                    case OrderMethod.atk:
+                        if (input == 1)
+                        {
+                            Character.Player.Equip.Items = Character.Player.Equip.Items.OrderBy(item => (int)item.Type).ToList();
+                            //int itemNum = 0;
+
+                        }
+                        else
+                        {
+                            Character.Player.Equip.Items = Character.Player.Equip.Items.OrderByDescending(item => (int)item.Type).ToList();
+                        }
+                        isChanging = false;
+                        state = InvenState.basic;
+                        break;
+                }
+                return true;
+            }
+            
             else if (input == Character.Player.Inven.Items.Count && state == InvenState.changeItem)
             {
                 state = InvenState.basic;
@@ -343,7 +349,12 @@ namespace TextRPGing.Scene
             {
                 message += $"{index}. 이름\r\n{++index}. 공력력\r\n{++index}. 방어력\r\n";
             }
-            
+            else if (state == InvenState.changeOrder && isChanging == true)
+            {
+                message += $"{++index}. 오름차순\r\n{++index}. 내림차순\r\n";
+            }
+
+
             else message += $"{index}. 종료\r\n";
             message += $"" +
                        "원하는 행동을 입력해주세요.\r\n" +
