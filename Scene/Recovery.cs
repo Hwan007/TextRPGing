@@ -122,7 +122,16 @@ namespace TextRPGing.Scene
                         message += $"{index}. 상태보기\n";
                         break;
                     case Define.GameEnum.eSceneType.Inventory:
-                        message += $"{index}. 상태보기\n";
+                        message += $"{index}. 인벤토리\n";
+                        break;
+                    case Define.GameEnum.eSceneType.Battle:
+                        message += $"{index}. 전투 시작\n";
+                        break;
+                    case Define.GameEnum.eSceneType.Store:
+                        message += $"{index}. 상점\n";
+                        break;
+                    case Define.GameEnum.eSceneType.SaveLoad:
+                        message += $"{index}. 저장하기/불러오기\n";
                         break;
                     default:
                         message += $"{index}. 오류입니다. 수정하세요.\n";

@@ -107,7 +107,7 @@ namespace TextRPGing.Scene
                 int index = i - routes.Length;
                 tempStr.Clear();
                 // 이름
-                tempStr.Append(itmes[index].Name);
+                tempStr.Append(" - " + itmes[index].Name);
                 tempStr.Append(Fit(tempStr.ToString(), 16));
                 sb.Append(tempStr + " | ");
                 // 능력치
