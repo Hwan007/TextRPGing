@@ -9,7 +9,7 @@ namespace TextRPGing.Model
     public class Equipment : Controller.EquipController
     {
         public int Id { get; set; }
-        public List<Item> Items { get; private set; }
+        public List<Item> Items { get; set; }
         public Equipment()
         {
             Items = new List<Item>();
