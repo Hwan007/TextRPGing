@@ -18,6 +18,7 @@ namespace TextRPGing.Model
         public int DEF { get; set; }
         public float CRT { get; set; }
         public float AVD { get; set; }
+        public bool IsAlive { get; set; }
         public int RewardExp { get; set; }
         public int RewardGold { get; set; }
 
@@ -30,6 +31,7 @@ namespace TextRPGing.Model
             DEF = def;
             CRT = crt;
             AVD = avd;
+            IsAlive = true;
         }
 
         public override void TakeDamage(int damage)

@@ -24,10 +24,10 @@
 
         public enum eSkillType
         {
-            warrior_skill,
-            thief_skill,
-            archor_skill,
-            magician_skill
+            Warrior_skill,
+            Thief_skill,
+            Archor_skill,
+            Magician_skill
         }
 
         public enum eCharacterClass
