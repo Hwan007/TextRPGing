@@ -35,6 +35,9 @@ namespace TextRPGing.Model
                     case Define.GameEnum.eItemType.Weapon:
                         Items.Add(item);
                         break;
+                    case Define.GameEnum.eItemType.Potion:
+                        //Items.Add(item);
+                        break;
                     default:
                         throw new Exception($"{item.Type} 잘못된 정보입니다.");
                 }
