@@ -54,7 +54,6 @@ namespace TextRPGing.Scene
                     DisplayBattleScene();
                     break;
                 case StateType.PlayerAttackResult:
-                    isPlayerTurn = false;
                     DisplayBattleScene();
                     break;
                 case StateType.MonsterAttackResult:
@@ -135,11 +134,15 @@ namespace TextRPGing.Scene
                 case StateType.PlayerAttackResult:
                     battle += $"{Character.Player.Name}의 공격 결과: \n\n";
                     battle += $"{Character.Player.Name}는(은) {targetMonster.Name}에게 {damage}의 데미지를 입혔습니다!\n\n";
-                    if (targetMonster.HP <= 0)
+                    if (targetMonster.HP <= 0 && targetMonster.IsAlive == true)
                     {
+                        targetMonster.HP = 0;
                         battle += $"{targetMonster.Name}는(은) HP가 0이 되어 쓰러졌습니다!\n\n";
                         targetMonster.IsAlive = false;
-                        monsterDeadCount += 1;
+                        if (targetMonster.IsAlive == false)
+                        {
+                            monsterDeadCount++;
+                        }
                     }
                     targetMonster = null;
                     battle += $"죽은 몬스터 수 : {monsterDeadCount}\n\n";
@@ -199,7 +202,6 @@ namespace TextRPGing.Scene
                         {
                             targetMonster.TakeDamage(damage);
                         }
-                        isPlayerTurn = false;
                         CurrentState = StateType.PlayerAttackResult;
                         return true;
                     }
@@ -221,12 +223,14 @@ namespace TextRPGing.Scene
                             {
                                 monsterAttack = random.Next(0, mStage.Monsters.Length);
                             } while (mStage.Monsters[monsterAttack].IsAlive == false);
+
                             damage = mActions[0].GetDamage(mStage.Monsters[monsterAttack].ATK, mStage.Monsters[monsterAttack].DEF,
                                 mStage.Monsters[monsterAttack].CRT, mStage.Monsters[monsterAttack].AVD);
                             if (isPlayerTurn == true)
                             {
                                 Character.Player.TakeDamage(damage);
                             }
+                            isPlayerTurn = false;
                             CurrentState = StateType.MonsterAttackResult;
                         }
                         return true;
@@ -257,7 +261,8 @@ namespace TextRPGing.Scene
                     if (input == 0)
                     {
                         mStage = null;
-
+                        Character.Player.Inven.Gold += 600;
+                        monsterDeadCount = 0;
                         GameManager.SceneManager.ChangeScene(ref scene, GameEnum.eSceneType.Town);
                         return true;
                     }
