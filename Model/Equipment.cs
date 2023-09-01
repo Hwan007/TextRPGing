@@ -10,10 +10,8 @@ namespace TextRPGing.Model
     {
         public int Id { get; set; }
         public List<Item> Items { get; private set; }
-        public Character mCharacter;
-        public Equipment(Character character)
+        public Equipment()
         {
-            mCharacter = character;
             Items = new List<Item>();
         }
         public override void EquipItem(Item item)
@@ -22,7 +20,7 @@ namespace TextRPGing.Model
             if (index != -1)
             {
                 Items.RemoveAt(index);
-                mCharacter.ReStat();
+                Character.Player.ReStat();
             }
             else
             {
@@ -41,7 +39,7 @@ namespace TextRPGing.Model
                     default:
                         throw new Exception($"{item.Type} 잘못된 정보입니다.");
                 }
-                mCharacter.ReStat();
+                Character.Player.ReStat();
             }
         }
 
