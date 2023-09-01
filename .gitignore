@@ -399,4 +399,4 @@ FodyWeavers.xsd
 
 
 # Json Data File
-Data/
+Data/*.json
