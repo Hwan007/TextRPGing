@@ -77,8 +77,8 @@ namespace TextRPGing.Model
             
 
             Inven.Items.Add(new Potion(1, "포 션", Define.GameEnum.eItemType.Potion, "그저 포션일 뿐입니다.", 100));
-            Inven.Items.Add(new Weapon("낡은 검", "초보자용 목검입니다.", 5, 0.10f, 100));
-            Inven.Items.Add(new Armor("누더기 옷", "그냥 천 쪼가리 입니다.", 5, 0.10f, 100));
+            Inven.Items.Add(new Item("낡은 검", Define.GameEnum.eItemType.Weapon, 5, 0.10f,0,0, "초보자용 목검입니다.", 100));
+            Inven.Items.Add(new Item("누더기 옷", Define.GameEnum.eItemType.Armor, 0, 0, 5, 0.10f, "그냥 천 쪼가리 입니다.", 100));
         }
 
         public override void ReStat()
@@ -91,11 +91,11 @@ namespace TextRPGing.Model
             {
                 if (item.Type == Define.GameEnum.eItemType.Weapon)
                 {
-                    xATK += ((Weapon)item).ATK;
+                    xATK += item.ATK;
                 }
                 else
                 {
-                    xDEF += ((Armor)item).DEF;
+                    xDEF +=item.DEF;
                 }
                 
             }
