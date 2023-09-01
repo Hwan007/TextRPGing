@@ -202,9 +202,9 @@ namespace TextRPGing.Scene
             StringBuilder sb = new StringBuilder();
             StringBuilder tempStr = new StringBuilder();
             var routes = GameManager.SceneManager.GetEnableScene(Define.GameEnum.eSceneType.Store);
-            for (int i = routes.Length; i < itmes.Count + routes.Length; ++i)
+            for (int i = routes.Length+1; i < itmes.Count + routes.Length+1; ++i)
             {
-                int index = i - routes.Length;
+                int index = i - routes.Length-1;
                 tempStr.Clear();
                 // 번호
                 if (i > 9)
