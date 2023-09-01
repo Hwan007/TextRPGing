@@ -44,7 +44,48 @@ namespace TextRPGing.Scene
                     if (mState == eState.Buy)
                     {
                         var item = Items[input - routes.Length - 1];
-                        Character.Player.Inven.AddItem(item);
+                        switch (item.Type)
+                        {
+                            case GameEnum.eItemType.Weapon:
+                                Weapon weaponToAdd = new Weapon(item.Name, item.Description, 0, 0, item.Price);
+                                if (weaponToAdd.Name == "숙련자의 검")
+                                {
+                                    weaponToAdd.ATK = 10;
+                                    weaponToAdd.CRT = 0.25f;
+                                }
+                                else if (weaponToAdd.Name == "불타는 검")
+                                {
+                                    weaponToAdd.ATK = 20;
+                                    weaponToAdd.CRT = 0.45f;
+                                }
+                                else
+                                {
+                                    weaponToAdd.ATK = 15;
+                                    weaponToAdd.CRT = 0.35f;
+                                }
+                                Character.Player.Inven.AddItem(weaponToAdd);
+                                break;
+                            case GameEnum.eItemType.Armor:
+                                Armor armorToAdd = new Armor(item.Name, item.Description, 0, 0, item.Price);
+                                if (armorToAdd.Name == "숙련자의 갑옷")
+                                {
+                                    armorToAdd.DEF = 10;
+                                    armorToAdd.AVD = 0.20f;
+                                }
+                                else if (armorToAdd.Name == "사슬갑옷")
+                                {
+                                    armorToAdd.DEF = 20;
+                                    armorToAdd.AVD = 0.45f;
+                                }
+                                else
+                                {
+                                    armorToAdd.DEF = 15;
+                                    armorToAdd.AVD = 0.30f;
+                                }
+                                Character.Player.Inven.AddItem(armorToAdd);
+                                break;
+                        }
+                        
                         Character.Player.Inven.Gold -= item.Price;
                     }
                     else

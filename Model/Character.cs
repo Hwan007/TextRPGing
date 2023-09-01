@@ -32,6 +32,7 @@ namespace TextRPGing.Model
         {
             Name = name;
             Job = job;
+            Level = 1;
 
             switch(Job) // 스탯 임의로 적어놨습니다. 랜덤으로 해도 재밌을거 같긴 하네요.
             {
@@ -45,7 +46,7 @@ namespace TextRPGing.Model
                     Skill = GameEnum.eSkillType.Warrior_skill.ToString();
                     break;
                 case Define.GameEnum.eCharacterClass.Thief:
-                    HP = 10;
+                    HP = 15;
                     MaxHP = 15;
                     ATK = 13;
                     DEF = 8;
