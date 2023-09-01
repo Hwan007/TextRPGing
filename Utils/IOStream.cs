@@ -14,7 +14,7 @@ namespace TextRPGing.Utils
 
         public static void SavePlayerJsonFile()
         {
-            string jsonText = JsonConvert.SerializeObject(Character.Player);
+            string jsonText = JsonConvert.SerializeObject(Character.Player, Formatting.Indented);
 
             DirectoryInfo di = new DirectoryInfo(DATA_FILE_DIR);
             if (di.Exists)
