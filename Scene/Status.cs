@@ -42,8 +42,8 @@ namespace TextRPGing.Scene
             sb.Append($"공격력 : {Character.Player.ATK}\n");
             sb.Append($"방어력 : {Character.Player.DEF}\n");
             sb.Append($"체  력 : {Character.Player.HP}/{Character.Player.MaxHP}\n");
-            sb.Append($"회피율 : {Character.Player.AVD}\n");
-            sb.Append($"치 확 : {Character.Player.CRT}\n");
+            sb.Append($"회  피 : {Character.Player.AVD}\n");
+            sb.Append($"치명타 : {Character.Player.CRT}\n");
             sb.Append($"골  드 : {Character.Player.Inven.Gold}\n\n");
             sb.Append($"장  비\n");
             sb.Append(GetItemList(Character.Player.Equip.Items));
