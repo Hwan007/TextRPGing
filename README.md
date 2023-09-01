@@ -1,6 +1,10 @@
 # 나전칠기(A07) 조 Text RPG 팀 프로젝트
 
 
+https://github.com/Hwan007/TextRPGing/assets/96556920/4e3e25e3-076a-4680-becf-716a8a723ad8
+
+
+
 ##  팀원 / 팀 소개
 ---
 
