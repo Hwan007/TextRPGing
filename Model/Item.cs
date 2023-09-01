@@ -22,6 +22,18 @@ namespace TextRPGing.Model
 
         public Item()
         {
+
+        }
+        public Item(string name, GameEnum.eItemType type, int atk, float crt, int def, float avd, string description, int price)
+        {
+            Name = name;
+            Type = type;
+            ATK = atk;
+            DEF = def;
+            AVD = avd;
+            CRT = crt;
+            Description = description;
+            Price = price;
         }
 
         public Item(int id, string name, GameEnum.eItemType type, string description, int price)

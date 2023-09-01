@@ -7,21 +7,21 @@ using TextRPGing.Define;
 
 namespace TextRPGing.Model
 {
-    public class Armor : Item
-    {
+    //public class Armor : Item
+    //{
 
-        public int DEF { get; set; }
-        public float AVD { get; set; }
+    //    public int DEF { get; set; }
+    //    public float AVD { get; set; }
 
-        public Armor(string name, string description, int def, float avd, int price)
-        {
-            Name = name;
-            Description = description;
-            DEF = def;
-            AVD = avd;
-            Price = price;
-            Type = Define.GameEnum.eItemType.Armor;
-            Id = new Random().Next(0, 99999);
-        }
-    }
+    //    public Armor(string name, string description, int def, float avd, int price)
+    //    {
+    //        Name = name;
+    //        Description = description;
+    //        DEF = def;
+    //        AVD = avd;
+    //        Price = price;
+    //        Type = Define.GameEnum.eItemType.Armor;
+    //        Id = new Random().Next(0, 99999);
+    //    }
+    //}
 }

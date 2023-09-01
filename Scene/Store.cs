@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using TextRPGing.Define;
 using TextRPGing.Define.Interface;
@@ -41,52 +42,33 @@ namespace TextRPGing.Scene
             {
                 if (input >= routes.Length + 1)
                 {
-                    if (mState == eState.Buy)
+                    if (mState == eState.Buy && Character.Player.Inven.Gold >= Items[input - routes.Length - 1].Price)
                     {
                         var item = Items[input - routes.Length - 1];
                         switch (item.Type)
                         {
                             case GameEnum.eItemType.Weapon:
-                                Weapon weaponToAdd = new Weapon(item.Name, item.Description, 0, 0, item.Price);
-                                if (weaponToAdd.Name == "숙련자의 검")
-                                {
-                                    weaponToAdd.ATK = 10;
-                                    weaponToAdd.CRT = 0.25f;
-                                }
-                                else if (weaponToAdd.Name == "불타는 검")
-                                {
-                                    weaponToAdd.ATK = 20;
-                                    weaponToAdd.CRT = 0.45f;
-                                }
-                                else
-                                {
-                                    weaponToAdd.ATK = 15;
-                                    weaponToAdd.CRT = 0.35f;
-                                }
+                                Item weaponToAdd = new Item(item.Name, item.Type, item.ATK, item.CRT, 0, 0, item.Description, item.Price);
                                 Character.Player.Inven.AddItem(weaponToAdd);
                                 break;
                             case GameEnum.eItemType.Armor:
-                                Armor armorToAdd = new Armor(item.Name, item.Description, 0, 0, item.Price);
-                                if (armorToAdd.Name == "숙련자의 갑옷")
-                                {
-                                    armorToAdd.DEF = 10;
-                                    armorToAdd.AVD = 0.20f;
-                                }
-                                else if (armorToAdd.Name == "사슬갑옷")
-                                {
-                                    armorToAdd.DEF = 20;
-                                    armorToAdd.AVD = 0.45f;
-                                }
-                                else
-                                {
-                                    armorToAdd.DEF = 15;
-                                    armorToAdd.AVD = 0.30f;
-                                }
+                                Item armorToAdd = new Item(item.Name, item.Type, 0, 0, item.DEF, item.AVD, item.Description, item.Price);
                                 Character.Player.Inven.AddItem(armorToAdd);
                                 break;
                         }
                         
                         Character.Player.Inven.Gold -= item.Price;
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine($"{Items[input - routes.Length - 1].Name} 아이템을 구매했습니다.");
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Thread.Sleep( 1500 );
+                    }
+                    else if (mState == eState.Buy && Character.Player.Inven.Gold < Items[input - routes.Length - 1].Price)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Magenta;
+                        Console.WriteLine($"돈이 부족합니다...현재 보유 골드 : {Character.Player.Inven.Gold} G");
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Thread.Sleep(1500);
                     }
                     else
                     {
