@@ -84,24 +84,24 @@ namespace TextRPGing.Scene
                 state = InvenState.changeOrder;
                 return true;
             }
-            else if (input >= 0 && input <= index && state == InvenState.changeOrder && isChanging == false)
+            else if (input > 0 && input <= index && state == InvenState.changeOrder && isChanging == false)
             {
-                method = (OrderMethod)input;
+                method = (OrderMethod)(input-1);
                 isChanging = true;
                 return true;
             }
-            else if (input == 1 || input == 2 && isChanging == true && state == InvenState.changeOrder)
+            else if (input == 1 && isChanging == true && state == InvenState.changeOrder || input == 2 && isChanging == true && state == InvenState.changeOrder)
             {
                 switch (method)
                 {
                     case OrderMethod.name:
                         if (input == 1)
                         {
-                            Character.Player.Equip.Items = Character.Player.Equip.Items.OrderBy(item => item.Name.Length).ToList();
+                            Character.Player.Inven.Items = Character.Player.Inven.Items.OrderBy(item => item.Name.Length).ToList();
                         }
                         else
                         {
-                            Character.Player.Equip.Items = Character.Player.Equip.Items.OrderByDescending(item => item.Name.Length).ToList();
+                            Character.Player.Inven.Items = Character.Player.Inven.Items.OrderByDescending(item => item.Name.Length).ToList();
                         }
                         isChanging = false;
                         state = InvenState.basic;
@@ -109,13 +109,13 @@ namespace TextRPGing.Scene
                     case OrderMethod.atk:
                         if (input == 1)
                         {
-                            Character.Player.Equip.Items = Character.Player.Equip.Items.OrderBy(item => (int)item.Type).ToList();
+                            Character.Player.Inven.Items = Character.Player.Inven.Items.OrderBy(item => (int)item.Type).ToList();
                             //int itemNum = 0;
 
                         }
                         else
                         {
-                            Character.Player.Equip.Items = Character.Player.Equip.Items.OrderByDescending(item => (int)item.Type).ToList();
+                            Character.Player.Inven.Items = Character.Player.Inven.Items.OrderByDescending(item => (int)item.Type).ToList();
                         }
                         isChanging = false;
                         state = InvenState.basic;
@@ -347,7 +347,7 @@ namespace TextRPGing.Scene
             }
             else if (state == InvenState.changeOrder && isChanging == false)
             {
-                message += $"{index}. 이름\r\n{++index}. 공력력\r\n{++index}. 방어력\r\n";
+                message += $"{++index}. 이름\r\n{++index}. 아이템 종류\r\n";
             }
             else if (state == InvenState.changeOrder && isChanging == true)
             {
