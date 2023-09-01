@@ -9,11 +9,10 @@ namespace TextRPGing.Model
     public class Equipment : Controller.EquipController
     {
         public int Id { get; set; }
-        public List<Item> Items { get; private set; }
+        public List<Item> Items { get;  set; }
         public Character mCharacter;
-        public Equipment(Character character)
+        public Equipment()
         {
-            mCharacter = character;
             Items = new List<Item>();
         }
         public override void EquipItem(Item item)
