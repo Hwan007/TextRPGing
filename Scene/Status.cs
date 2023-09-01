@@ -107,19 +107,19 @@ namespace TextRPGing.Scene
                 sb.Append(tempStr + " | ");
                 // 능력치
                 tempStr.Clear();
-                if (itmes[index] is Weapon)
+                if (itmes[index].Type == Define.GameEnum.eItemType.Weapon)
                 {
-                    var item = itmes[index] as Weapon;
+                    var item = itmes[index];
                     tempStr.Append("공격력 +" + item.ATK);
                 }
-                else if (itmes[index] is Armor)
+                else if (itmes[index].Type == Define.GameEnum.eItemType.Armor)
                 {
-                    var item = itmes[index] as Armor;
+                    var item = itmes[index];
                     tempStr.Append("방어력 +" + item.DEF);
                 }
-                else if (itmes[index] is Potion)
+                else if (itmes[index].Type == Define.GameEnum.eItemType.Potion)
                 {
-                    var item = itmes[index] as Potion;
+                    var item = itmes[index];
                     tempStr.Append("회복력 +" + item.Heal);
                 }
                 tempStr.Append(Fit(tempStr.ToString(), 12));

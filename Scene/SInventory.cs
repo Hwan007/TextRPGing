@@ -263,7 +263,7 @@ namespace TextRPGing.Scene
             switch (item.Type)
             {
                 case Define.GameEnum.eItemType.Weapon:
-                    data = Encoding.Unicode.GetBytes($"ATK +{((Weapon)item).ATK}");
+                    data = Encoding.Unicode.GetBytes($"ATK +{item.ATK}");
                     nameLength = data.Length;
                     blank = (30 - nameLength) / 2;
 
@@ -275,11 +275,11 @@ namespace TextRPGing.Scene
                         }
                         if (i == 1)
                             break;
-                        message += $"ATK +{((Weapon)item).ATK}  CRT +{((Weapon)item).CRT}";
+                        message += $"ATK +{item.ATK}  CRT +{item.CRT}";
                     }
                     break;
                 case Define.GameEnum.eItemType.Armor:
-                    data = Encoding.Unicode.GetBytes($"ATK +{((Armor)item).DEF}");
+                    data = Encoding.Unicode.GetBytes($"ATK +{item.DEF}");
                     nameLength = data.Length;
                     blank = (30 - nameLength) / 2;
 
@@ -291,7 +291,7 @@ namespace TextRPGing.Scene
                         }
                         if (i == 1)
                             break;
-                        message += $"DEF +{((Armor)item).DEF}  AVD +{((Armor)item).AVD}";
+                        message += $"DEF +{item.DEF}  AVD +{item.AVD}";
                     }
                     break;
                 case Define.GameEnum.eItemType.Potion:
