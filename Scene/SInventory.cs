@@ -75,7 +75,7 @@ namespace TextRPGing.Scene
                 else
                 {
                     Console.WriteLine("세상에 포션을 싸울 때 쓰는 사람이 어디 있을까? 물건은 용도에 맞게 쓰자.");
-                    Thread.Sleep(1000);
+                    Thread.Sleep(2000);
                     return true;
                 }
             }
@@ -259,6 +259,7 @@ namespace TextRPGing.Scene
             byte[] data;
             int blank;
             string message = "";
+            if (item == null) return message; 
             switch (item.Type)
             {
                 case Define.GameEnum.eItemType.Weapon:
