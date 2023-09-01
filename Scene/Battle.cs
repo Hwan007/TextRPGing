@@ -68,12 +68,17 @@ namespace TextRPGing.Scene
 
         public bool ActByInput(int input, ref Define.GameEnum.eSceneType scene)
         {
-            // CurrentState에 따라서 행동을 해야한다. => switch를 써야 보기 좋다.
             switch (CurrentState)
             {
                 case StateType.ChooseAction:
                     return BattleActionMethod(input, ref scene);
                 case StateType.ChooseMonster:
+                    return BattleActionMethod(input, ref scene);
+                case StateType.PlayerAttackResult:
+                    return BattleActionMethod(input, ref scene);
+                case StateType.MonsterAttackResult:
+                    return BattleActionMethod(input, ref scene);
+                case StateType.BattleResult:
                     return BattleActionMethod(input, ref scene);
             }
             // 1. StateType.ChooseAction에서는 행동 리스트를 표시했으니, 인풋에 따라서 행동을 선택해야 한다. ※ 필요한 데이터 = 행동 리스트
@@ -94,6 +99,7 @@ namespace TextRPGing.Scene
             // => 이제 다시 1번으로 돌아가야 하므로 CurrentState를 StateType.ChooseAction으로 바꾼다.ㅊ
             return false;
         }
+        private int monsterDeadCount = 0;
 
         public void DisplayBattleScene()
         {
@@ -118,7 +124,6 @@ namespace TextRPGing.Scene
                     break;
             }
             string playerStatus = $"\n[내 정보]\nLv.{Character.Player.Level} {Character.Player.Name} {Character.Player.Job}\nHP {Character.Player.HP}/{Character.Player.MaxHP}\n\n";
-            monsterAttack = random.Next(0, mStage.Monsters.Length);
             switch (CurrentState)
             {
                 case StateType.ChooseAction:
@@ -129,16 +134,23 @@ namespace TextRPGing.Scene
                     break;
                 case StateType.PlayerAttackResult:
                     battle += $"{Character.Player.Name}의 공격 결과: \n\n";
-                    battle += $"{Character.Player.Name}은 {targetMonster.Name}에게 {damage}의 데미지를 입혔습니다!\n\n";
+                    battle += $"{Character.Player.Name}는(은) {targetMonster.Name}에게 {damage}의 데미지를 입혔습니다!\n\n";
                     if (targetMonster.HP <= 0)
                     {
-                        battle += $"{targetMonster}는 HP가 0이 되어 쓰러졌습니다!\n\n";
+                        battle += $"{targetMonster.Name}는(은) HP가 0이 되어 쓰러졌습니다!\n\n";
+                        targetMonster.IsAlive = false;
+                        monsterDeadCount += 1;
                     }
+                    targetMonster = null;
+                    battle += $"죽은 몬스터 수 : {monsterDeadCount}\n\n";
+                    battle += $"0을 입력하시면 다음 화면으로 진행합니다.\n>>";
                     break;
                 case StateType.MonsterAttackResult:
                     if (mStage.Monsters.Length > 0)
                     {
-                        battle += $"{mStage.Monsters[monsterAttack]}은 {Character.Player.Name}에게 {damage}의 데미지를 입혔습니다!";
+
+                        battle += $"{mStage.Monsters[monsterAttack].Name}는(은) {Character.Player.Name}에게 {damage}의 데미지를 입혔습니다!\n\n";
+                        battle += $"0을 입력하시면 다음 화면으로 진행합니다.\n>>";
                     }
                     else
                     {
@@ -146,7 +158,15 @@ namespace TextRPGing.Scene
                     }
                     break;
                 case StateType.BattleResult:
-                    battle += "모든 몬스터를 쓰러뜨렸습니다!";
+                    if (Character.Player.HP != 0)
+                    {
+                        battle += "모든 몬스터를 쓰러뜨렸습니다!";
+                        battle += $"0을 입력하시면 다음 화면으로 진행합니다.\n>>";
+                    }
+                    else
+                    {
+                        battle += $"{Character.Player.Name}는(은) 쓰러졌습니다.";
+                    }
                     break;
             }
             MessageToUIManager(battle);
@@ -179,7 +199,66 @@ namespace TextRPGing.Scene
                         {
                             targetMonster.TakeDamage(damage);
                         }
+                        isPlayerTurn = false;
                         CurrentState = StateType.PlayerAttackResult;
+                        return true;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                case StateType.PlayerAttackResult:
+                    damage = 0;
+                    if (input == 0)
+                    {
+                        if (monsterDeadCount == 3)
+                        {
+                            CurrentState = StateType.BattleResult;
+                        }
+                        else
+                        {
+                            do
+                            {
+                                monsterAttack = random.Next(0, mStage.Monsters.Length);
+                            } while (mStage.Monsters[monsterAttack].IsAlive == false);
+                            damage = mActions[0].GetDamage(mStage.Monsters[monsterAttack].ATK, mStage.Monsters[monsterAttack].DEF,
+                                mStage.Monsters[monsterAttack].CRT, mStage.Monsters[monsterAttack].AVD);
+                            if (isPlayerTurn == true)
+                            {
+                                Character.Player.TakeDamage(damage);
+                            }
+                            CurrentState = StateType.MonsterAttackResult;
+                        }
+                        return true;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                case StateType.MonsterAttackResult:
+                    if (input == 0)
+                    {
+                        if (monsterDeadCount == 3)
+                        {
+                            CurrentState = StateType.BattleResult;
+                        }
+                        else
+                        {
+                            CurrentState = StateType.ChooseAction;
+                            isPlayerTurn = true;
+                        }
+                        return true;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                case StateType.BattleResult:
+                    if (input == 0)
+                    {
+                        mStage = null;
+
+                        GameManager.SceneManager.ChangeScene(ref scene, GameEnum.eSceneType.Town);
                         return true;
                     }
                     else

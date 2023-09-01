@@ -42,7 +42,7 @@ namespace TextRPGing.Model
                     DEF = 10;
                     CRT = 0.25f;
                     AVD = 0f;
-                    Skill = GameEnum.eSkillType.warrior_skill.ToString();
+                    Skill = GameEnum.eSkillType.Warrior_skill.ToString();
                     break;
                 case Define.GameEnum.eCharacterClass.Thief:
                     HP = 10;
@@ -50,7 +50,7 @@ namespace TextRPGing.Model
                     ATK = 13;
                     DEF = 8;
                     CRT = 0.50f;
-                    Skill = GameEnum.eSkillType.thief_skill.ToString();
+                    Skill = GameEnum.eSkillType.Thief_skill.ToString();
                     AVD = 0.25f;
                     break;
                 case Define.GameEnum.eCharacterClass.Archer:
@@ -59,7 +59,7 @@ namespace TextRPGing.Model
                     ATK = 15;
                     DEF = 7;
                     CRT = 0.35f;
-                    Skill = GameEnum.eSkillType.archor_skill.ToString();
+                    Skill = GameEnum.eSkillType.Archor_skill.ToString();
                     AVD = 0.15f;
                     break;
                 case Define.GameEnum.eCharacterClass.Magician:
@@ -69,7 +69,7 @@ namespace TextRPGing.Model
                     DEF = 6;
                     CRT = 0.25f;
                     AVD = 0f;
-                    Skill = GameEnum.eSkillType.magician_skill.ToString();
+                    Skill = GameEnum.eSkillType.Magician_skill.ToString();
                     break;
             }
             Inven = new Inventory();
