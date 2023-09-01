@@ -365,7 +365,7 @@ namespace TextRPGing.Scene
 
 
             else message += $"{index}. 종료\r\n";
-            message += $"" +
+            message += $"\n" +
                        "원하는 행동을 입력해주세요.\r\n" +
                        ">> ";
             MessageToUIManager(message);

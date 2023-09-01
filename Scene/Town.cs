@@ -222,7 +222,7 @@ namespace TextRPGing.Scene
                         sb.Append($"전투 시작\n");
                         break;
                     case Define.GameEnum.eSceneType.Recovery:
-                        sb.Append($"포션 사용\n");
+                        sb.Append($"회복\n");
                         break;
                     case Define.GameEnum.eSceneType.Inventory:
                         sb.Append($"인벤토리\n");
