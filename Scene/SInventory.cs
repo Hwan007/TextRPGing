@@ -69,6 +69,14 @@ namespace TextRPGing.Scene
             {
                 if (Character.Player.Inven.Items[input].Type != Define.GameEnum.eItemType.Potion)
                 {
+                    foreach (var item in Character.Player.Equip.Items)
+                    {
+                        if (item.Type == Character.Player.Inven.Items[input].Type)
+                        {
+                            Character.Player.Equip.EquipItem(item);
+                            break;
+                        }
+                    }
                     Character.Player.Equip.EquipItem(Character.Player.Inven.Items[input]);
                     return true;
                 }
