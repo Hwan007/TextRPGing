@@ -75,7 +75,7 @@ namespace TextRPGing.Scene
                 else
                 {
                     Console.WriteLine("세상에 포션을 싸울 때 쓰는 사람이 어디 있을까? 물건은 용도에 맞게 쓰자.");
-                    Thread.Sleep(1000);
+                    Thread.Sleep(2000);
                     return true;
                 }
             }
@@ -259,10 +259,11 @@ namespace TextRPGing.Scene
             byte[] data;
             int blank;
             string message = "";
+            if (item == null) return message; 
             switch (item.Type)
             {
                 case Define.GameEnum.eItemType.Weapon:
-                    data = Encoding.Unicode.GetBytes($"ATK +{((Weapon)item).ATK}");
+                    data = Encoding.Unicode.GetBytes($"ATK +{item.ATK}");
                     nameLength = data.Length;
                     blank = (30 - nameLength) / 2;
 
@@ -274,11 +275,11 @@ namespace TextRPGing.Scene
                         }
                         if (i == 1)
                             break;
-                        message += $"ATK +{((Weapon)item).ATK}  CRT +{((Weapon)item).CRT}";
+                        message += $"ATK +{item.ATK}  CRT +{item.CRT}";
                     }
                     break;
                 case Define.GameEnum.eItemType.Armor:
-                    data = Encoding.Unicode.GetBytes($"ATK +{((Armor)item).DEF}");
+                    data = Encoding.Unicode.GetBytes($"ATK +{item.DEF}");
                     nameLength = data.Length;
                     blank = (30 - nameLength) / 2;
 
@@ -290,7 +291,7 @@ namespace TextRPGing.Scene
                         }
                         if (i == 1)
                             break;
-                        message += $"DEF +{((Armor)item).DEF}  AVD +{((Armor)item).AVD}";
+                        message += $"DEF +{item.DEF}  AVD +{item.AVD}";
                     }
                     break;
                 case Define.GameEnum.eItemType.Potion:

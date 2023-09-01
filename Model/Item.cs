@@ -14,6 +14,11 @@ namespace TextRPGing.Model
         public Define.GameEnum.eItemType Type { get; set; }
         public string Description { get; set; }
         public int Price { get; set; }
+        public int ATK { get; set; }
+        public int DEF { get; set; }
+        public float CRT { get; set; }
+        public float AVD { get; set; }
+        public int Heal { get; set; }
 
         public Item()
         {

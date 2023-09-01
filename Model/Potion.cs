@@ -14,6 +14,7 @@ namespace TextRPGing.Model
 
         public Potion(int id, string name, GameEnum.eItemType type, string description, int price) : base(id, name, type, description, price)
         {
+            Heal = 30;
         }
     }
 }
