@@ -220,53 +220,51 @@ namespace TextRPGing.Scene
             GameManager.UIManager.DisplayUpdate();
             GameManager.UIManager.ClearMessageQueue();
         }
-        private string GetItemList(List<Item> itmes)
+        private string GetItemList(List<Item> items)
         {
             StringBuilder sb = new StringBuilder();
             StringBuilder tempStr = new StringBuilder();
             var routes = GameManager.SceneManager.GetEnableScene(Define.GameEnum.eSceneType.Store);
-            for (int i = routes.Length; i < itmes.Count + routes.Length; ++i)
+            for (int i = routes.Length+1; i < items.Count + routes.Length+1; ++i)
             {
-                int index = i - routes.Length;
+                int index = i - routes.Length-1;
                 tempStr.Clear();
                 // 번호
                 if (i > 9)
-                    sb.Append($"[{i+1}]");
+                    sb.Append($"[{i}]");
                 else
-                    sb.Append($"[{i+1}] ");
+                    sb.Append($"[{i}] ");
                 // 이름
-                tempStr.Append(itmes[index].Name);
+                tempStr.Append(items[index].Name);
                 tempStr.Append(Fit(tempStr.ToString(), 16));
                 sb.Append(tempStr + " | ");
                 // 능력치
                 tempStr.Clear();
-                if (itmes[index].Type == GameEnum.eItemType.Weapon)
+                if (items[index].Type == GameEnum.eItemType.Weapon)
                 {
-                    var item = itmes[index];
-                    tempStr.Append("공격력 +" + item.ATK);
+                    tempStr.Append("공격력 +" + items[index].ATK);
                 }
-                else if (itmes[index].Type ==GameEnum.eItemType.Armor)
+                else if (items[index].Type == GameEnum.eItemType.Armor)
                 {
-                    var item = itmes[index];
-                    tempStr.Append("방어력 +" + item.DEF);
+                    
+                    tempStr.Append("방어력 +" + items[index].DEF);
                 }
-                else if (itmes[index].Type == GameEnum.eItemType.Potion)
+                else if (items[index].Type == GameEnum.eItemType.Potion)
                 {
-                    var item = itmes[index] as Potion;
-                    tempStr.Append("회복력 +" + item.Heal);
+                    tempStr.Append("회복력 +" + items[index].Heal);
                 }
                 tempStr.Append(Fit(tempStr.ToString(), 12));
                 sb.Append(tempStr + " | ");
                 // 설명
                 tempStr.Clear();
-                tempStr.Append($"{itmes[index].Description}");
+                tempStr.Append($"{items[index].Description}");
                 tempStr.Append(Fit(tempStr.ToString(), 40));
                 sb.Append(tempStr + " | ");
                 // 금액
                 if (mState == eState.Buy)
-                    sb.Append($"{itmes[index].Price}\n");
+                    sb.Append($"{items[index].Price}\n");
                 else
-                    sb.Append($"{itmes[index].Price * 85 / 100}\n");
+                    sb.Append($"{items[index].Price * 85 / 100}\n");
             }
             sb.Append("\n\n");
             return sb.ToString();
