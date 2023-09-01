@@ -86,6 +86,11 @@ namespace TextRPGing.Scene
             }
             sbs.Add(sb.ToString());
 
+            // 원하는 행동을 입력해주세요.
+            sb.Clear();
+            sb.Append("\n원하는 행동을 입력해주세요.\n>>");
+            sbs.Add(sb.ToString());
+
             MessageToUI message = new MessageToUI(Define.GameEnum.eSceneType.Status, sbs.ToArray());
             GameManager.UIManager.PutToOutQueue(message);
             GameManager.UIManager.DisplayUpdate();

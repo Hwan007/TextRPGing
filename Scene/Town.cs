@@ -92,6 +92,11 @@ namespace TextRPGing.Scene
                 AppendRoutes(ref sb);
                 sbs.Add(sb.ToString());
 
+                // 원하는 행동을 입력해주세요.
+                sb.Clear();
+                sb.Append("\n원하는 행동을 입력해주세요.\n>>");
+                sbs.Add(sb.ToString());
+
                 SendToUIManager(sbs.ToArray());
                 GameManager.UIManager.DisplayUpdate();
                 GameManager.UIManager.ClearMessageQueue();
