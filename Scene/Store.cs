@@ -47,41 +47,11 @@ namespace TextRPGing.Scene
                         switch (item.Type)
                         {
                             case GameEnum.eItemType.Weapon:
-                                Weapon weaponToAdd = new Weapon(item.Name, item.Description, 0, 0, item.Price);
-                                if (weaponToAdd.Name == "숙련자의 검")
-                                {
-                                    weaponToAdd.ATK = 10;
-                                    weaponToAdd.CRT = 0.25f;
-                                }
-                                else if (weaponToAdd.Name == "불타는 검")
-                                {
-                                    weaponToAdd.ATK = 20;
-                                    weaponToAdd.CRT = 0.45f;
-                                }
-                                else
-                                {
-                                    weaponToAdd.ATK = 15;
-                                    weaponToAdd.CRT = 0.35f;
-                                }
+                                Item weaponToAdd = new Item(item.Name, item.Type, item.ATK, item.CRT, 0, 0, item.Description, item.Price);
                                 Character.Player.Inven.AddItem(weaponToAdd);
                                 break;
                             case GameEnum.eItemType.Armor:
-                                Armor armorToAdd = new Armor(item.Name, item.Description, 0, 0, item.Price);
-                                if (armorToAdd.Name == "숙련자의 갑옷")
-                                {
-                                    armorToAdd.DEF = 10;
-                                    armorToAdd.AVD = 0.20f;
-                                }
-                                else if (armorToAdd.Name == "사슬갑옷")
-                                {
-                                    armorToAdd.DEF = 20;
-                                    armorToAdd.AVD = 0.45f;
-                                }
-                                else
-                                {
-                                    armorToAdd.DEF = 15;
-                                    armorToAdd.AVD = 0.30f;
-                                }
+                                Item armorToAdd = new Item(item.Name, item.Type, 0, 0, item.DEF, item.AVD, item.Description, item.Price);
                                 Character.Player.Inven.AddItem(armorToAdd);
                                 break;
                         }
@@ -258,17 +228,17 @@ namespace TextRPGing.Scene
                 sb.Append(tempStr + " | ");
                 // 능력치
                 tempStr.Clear();
-                if (itmes[index] is Weapon)
+                if (itmes[index].Type == GameEnum.eItemType.Weapon)
                 {
-                    var item = itmes[index] as Weapon;
+                    var item = itmes[index];
                     tempStr.Append("공격력 +" + item.ATK);
                 }
-                else if (itmes[index] is Armor)
+                else if (itmes[index].Type ==GameEnum.eItemType.Armor)
                 {
-                    var item = itmes[index] as Armor;
+                    var item = itmes[index];
                     tempStr.Append("방어력 +" + item.DEF);
                 }
-                else if (itmes[index] is Potion)
+                else if (itmes[index].Type == GameEnum.eItemType.Potion)
                 {
                     var item = itmes[index] as Potion;
                     tempStr.Append("회복력 +" + item.Heal);
