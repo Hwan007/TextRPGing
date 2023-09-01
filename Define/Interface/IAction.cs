@@ -9,9 +9,10 @@ namespace TextRPGing.Define.Interface
 {
     public interface IAction
     {
-        string Name { get; set; }
+        string AfterAction { get; set; }
 
-        ActionResult Result { get; set; }
-        abstract ActionResult GetDamage(int atk, int def, float crt, float avd);
+        int FinalDamage { get; set; }
+
+        abstract int GetDamage(int atk, int def, float crt, float avd);
     }
 }

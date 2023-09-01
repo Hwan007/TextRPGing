@@ -90,7 +90,7 @@ namespace TextRPGing.Scene
             sb.Append($"아이템을 사고 팔 수 있습니다.\n\n");
 
             // StoreItem.json 파일에서 아이템 불러오기
-            LoadItemFromStore();
+            Items = LoadItemFromStore();
 
             // 아이템 리스트 출력
             // 번호 | 이름 | 능력치 | 설명 | 금액
@@ -143,9 +143,9 @@ namespace TextRPGing.Scene
             MessageAndUpdate(sb.ToString());
         }
 
-        private void LoadItemFromStore()
+        private List<Item> LoadItemFromStore()
         {
-            throw new NotImplementedException();
+            return IOStream.LoadStoreItem();
         }
 
         public void AddItemToStore(Item[] itmes)

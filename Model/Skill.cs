@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TextRPGing.Define;
 using TextRPGing.Define.Interface;
 
 namespace TextRPGing.Model
@@ -11,18 +12,20 @@ namespace TextRPGing.Model
     {
         public int Id { get; set; }
         Define.GameEnum.eSkillType Type { get; set; }
-        public int MinDamage { get; set; }
-        public int MaxDamage { get; set; }
+        public int CrtDamage { get; set; }
         public int Damage { get; set; }
-        public string Name { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public ActionResult Result { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-        public Skill(int id, Define.GameEnum.eSkillType type, int minDamage, int maxDamage, int damage)
+
+        public string Name { get; set; }
+        public string AfterAction { get; set; }
+        public int FinalDamage { get; set; }
+        public Skill(int damage)
         {
-
+            Name = Character.Player.Skill;
+            Damage = damage;
         }
 
-        public ActionResult GetDamage(int atk, int def, float crt, float avd)
+        public int GetDamage(int atk, int def, float crt, float avd)
         {
             throw new NotImplementedException();
         }

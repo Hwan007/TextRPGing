@@ -34,7 +34,7 @@ namespace TextRPGing.Model
 
         public override void TakeDamage(int damage)
         {
-            HP -= (int)((damage - DEF) * AVD);
+            HP -= damage;
         }
     }
 }
