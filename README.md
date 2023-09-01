@@ -1,3 +1,6 @@
+![image](https://github.com/Hwan007/TextRPGing/assets/70641418/40f1dd4e-54e2-4f20-abdd-a83fa85547b5)
+
+
 # 나전칠기(A07) 조 Text RPG 팀 프로젝트
 
 
