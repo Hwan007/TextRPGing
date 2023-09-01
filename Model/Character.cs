@@ -73,7 +73,7 @@ namespace TextRPGing.Model
                     break;
             }
             Inven = new Inventory();
-            Equip = new Equipment(Player);
+            
 
             Inven.Items.Add(new Potion(1, "포 션", Define.GameEnum.eItemType.Potion, "그저 포션일 뿐입니다.", 100));
             Inven.Items.Add(new Weapon("낡은 검", "초보자용 목검입니다.", 5, 0.10f, 100));
@@ -100,7 +100,7 @@ namespace TextRPGing.Model
             }
 
             ATK += xATK;
-            DEF -= xDEF;
+            DEF += xDEF;
         }
 
         public override void TakeDamage(int  damage)
