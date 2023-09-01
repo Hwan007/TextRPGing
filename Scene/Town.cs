@@ -23,6 +23,7 @@ namespace TextRPGing.Scene
                 if (name != null && job.HasValue)
                 {
                     Character.Player = new Character(name, job.Value);
+                    Character.Player.Equip = new Equipment();
                     Character.Player.Equip.mCharacter = Character.Player;
                     SendToUIManager($"내일배움캠프에 온 것을 환영하오.");
                     GameManager.UIManager.DisplayUpdate();
