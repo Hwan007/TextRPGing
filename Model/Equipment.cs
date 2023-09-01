@@ -9,8 +9,7 @@ namespace TextRPGing.Model
     public class Equipment : Controller.EquipController
     {
         public int Id { get; set; }
-        public List<Item> Items { get;  set; }
-        public Character mCharacter;
+        public List<Item> Items { get; private set; }
         public Equipment()
         {
             Items = new List<Item>();
@@ -21,7 +20,7 @@ namespace TextRPGing.Model
             if (index != -1)
             {
                 Items.RemoveAt(index);
-                mCharacter.ReStat();
+                Character.Player.ReStat();
             }
             else
             {
@@ -40,7 +39,7 @@ namespace TextRPGing.Model
                     default:
                         throw new Exception($"{item.Type} 잘못된 정보입니다.");
                 }
-                mCharacter.ReStat();
+                Character.Player.ReStat();
             }
         }
 
