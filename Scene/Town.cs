@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using TextRPGing.Manager;
 using TextRPGing.Model;
@@ -14,20 +15,62 @@ namespace TextRPGing.Scene
         private string[] jobs = { "전사", "도적", "궁수", "마법사" };
         private string name;
         private Define.GameEnum.eCharacterClass? job;
+        private enum eStateType
+        {
+            Start,
+            LoadCharacter,
+            MakeCharacter,
+            Main
+        }
+        private eStateType mState;
+        public Town()
+        {
+            mState = eStateType.Start;
+        }
         public bool ActByInput(int input, ref Define.GameEnum.eSceneType scene)
         {
             if (Character.Player == null)
             {
-                job = CheckJob(input);
-
-                if (name != null && job.HasValue)
+                if (mState == eStateType.Start)
                 {
-                    Character.Player = new Character(name, job.Value);
-                    Character.Player.Equip = new Equipment();
-                    SendToUIManager($"내일배움캠프에 온 것을 환영하오.");
-                    GameManager.UIManager.DisplayUpdate();
-                    GameManager.UIManager.ClearMessageQueue();
+                    if (input == 0)
+                        mState = eStateType.LoadCharacter;
+                    else if (input == 1)
+                        mState = eStateType.MakeCharacter;
+                    else
+                        return false;
                     return true;
+                }
+                else if (mState == eStateType.LoadCharacter)
+                {
+                    if (input == 0)
+                        mState = eStateType.Start;
+                    else if (input == 1)
+                    {
+                        Character.Player = IOStream.LoadPlayerJsonFile();
+                        SendToUIManager($"불러오기가 완료되었습니다.\n");
+                        UpdateUI();
+                        Thread.Sleep(1000);
+                        mState = eStateType.Main;
+                    }
+                    else
+                        return false;
+                    return true;
+                }
+                else if (mState == eStateType.MakeCharacter)
+                {
+                    job = CheckJob(input);
+
+                    if (name != null && job.HasValue)
+                    {
+                        Character.Player = new Character(name, job.Value);
+                        Character.Player.Equip = new Equipment();
+                        SendToUIManager($"내일배움캠프에 온 것을 환영하오.");
+                        UpdateUI();
+                        Thread.Sleep(1000);
+                        mState = eStateType.Main;
+                        return true;
+                    }
                 }
                 return false;
             }
@@ -49,27 +92,13 @@ namespace TextRPGing.Scene
             GameManager.UIManager.ConsoleClear();
             if (Character.Player == null)
             {
-                // 타이틀 출력
-                SendToUIManager($"내일배움캠프에 당도한 것을 환영하오, 낯선이여.\n");
-                SendToUIManager($"나는 나의 훌륭한 학생들을 굽어살피는 깨우친 튜터, 염예찬이오.\n\n");
-
-                // 이름 선택 출력
-                SendToUIManager($"이름을 말하시오.\n\n");
-                GameManager.UIManager.DisplayUpdate();
-                GameManager.UIManager.ClearMessageQueue();
-
-                // input 확인
-                name = CheckName();
-
-                // 직업 선택 출력
-                SendToUIManager($"직업이 무엇이오?\n");
-                for (int i = 0; i <= (int)Define.GameEnum.eCharacterClass.Magician; ++i)
-                {
-                    SendToUIManager($"[{i}] {jobs[i]}\n");
-                }
-                SendToUIManager("\n");
-                GameManager.UIManager.DisplayUpdate();
-                GameManager.UIManager.ClearMessageQueue();
+                // 불러오기 / 새 캐릭터 만들기
+                if (mState == eStateType.Start)
+                    StartGameDisplay();
+                else if (mState == eStateType.LoadCharacter)
+                    LoadCharacterDisplay();
+                else if (mState == eStateType.MakeCharacter)
+                    MakeNewCharacterDisplay();
             }
             else
             {
@@ -98,10 +127,86 @@ namespace TextRPGing.Scene
                 sbs.Add(sb.ToString());
 
                 SendToUIManager(sbs.ToArray());
-                GameManager.UIManager.DisplayUpdate();
-                GameManager.UIManager.ClearMessageQueue();
+                UpdateUI();
             }
         }
+        private void LoadCharacterDisplay()
+        {
+            // 타이틀 출력
+            SendToUIManager(" ######   ######   ##  ##   ######            #####    #####     #####\n");
+            UpdateUI();
+            SendToUIManager("   ##     ##       ##  ##     ##              ##  ##   ##  ##   ##\n");
+            UpdateUI();
+            SendToUIManager("   ##     #####     ####      ##              ##  ##   ##  ##   ##\n");
+            UpdateUI();
+            SendToUIManager("   ##     ##        ####      ##              #####    #####    ## ###\n");
+            UpdateUI();
+            SendToUIManager("   ##     ##       ##  ##     ##              ## ##    ##       ##  ##\n");
+            UpdateUI();
+            SendToUIManager("   ##     ######   ##  ##     ##              ##  ##   ##        #####\n\n\n");
+            UpdateUI();
+
+            // 선택지 출력
+            // 0 취소
+            // 1 캐릭터 불러오기
+            SendToUIManager("0. 취소\n");
+            SendToUIManager("1. 캐릭터 불러오기\n\n");
+            SendToUIManager("원하시는 행동을 입력해주세요.\n>>");
+            UpdateUI();
+        }
+        private void StartGameDisplay()
+        {
+            // 타이틀 출력
+            SendToUIManager(" ######   ######   ##  ##   ######            #####    #####     #####\n");
+            UpdateUI();
+            Thread.Sleep(100);
+            SendToUIManager("   ##     ##       ##  ##     ##              ##  ##   ##  ##   ##\n");
+            UpdateUI();
+            Thread.Sleep(100);
+            SendToUIManager("   ##     #####     ####      ##              ##  ##   ##  ##   ##\n");
+            UpdateUI();
+            Thread.Sleep(100);
+            SendToUIManager("   ##     ##        ####      ##              #####    #####    ## ###\n");
+            UpdateUI();
+            Thread.Sleep(100);
+            SendToUIManager("   ##     ##       ##  ##     ##              ## ##    ##       ##  ##\n");
+            UpdateUI();
+            Thread.Sleep(100);
+            SendToUIManager("   ##     ######   ##  ##     ##              ##  ##   ##        #####\n\n\n");
+            UpdateUI();
+            Thread.Sleep(100);
+
+            // 선택지 출력
+            // 0 캐릭터 생성
+            // 1 캐릭터 불러오기
+            SendToUIManager("0. 불러오기\n");
+            SendToUIManager("1. 새 캐릭터 생성\n\n");
+            SendToUIManager("원하시는 행동을 입력해주세요.\n>>");
+            UpdateUI();
+        }
+        private void MakeNewCharacterDisplay()
+        {
+            // 타이틀 출력
+            SendToUIManager($"내일배움캠프에 당도한 것을 환영하오, 낯선이여.\n");
+            SendToUIManager($"나는 나의 훌륭한 학생들을 굽어살피는 깨우친 튜터, 염예찬이오.\n\n");
+
+            // 이름 선택 출력
+            SendToUIManager($"이름을 말하시오.\n\n>>");
+            UpdateUI();
+
+            // input 확인
+            name = CheckName();
+
+            // 직업 선택 출력
+            SendToUIManager($"직업이 무엇이오?\n");
+            for (int i = 0; i <= (int)Define.GameEnum.eCharacterClass.Magician; ++i)
+            {
+                SendToUIManager($"[{i}] {jobs[i]}\n");
+            }
+            SendToUIManager("\n\n>>");
+            UpdateUI();
+        }
+
         private void AppendRoutes(ref StringBuilder sb)
         {
             var routes = GameManager.SceneManager.GetEnableScene(Define.GameEnum.eSceneType.Town);
@@ -144,8 +249,7 @@ namespace TextRPGing.Scene
                 if (input.Length < 0)
                 {
                     SendToUIManager("뭐라 하셨소?\n");
-                    GameManager.UIManager.DisplayUpdate();
-                    GameManager.UIManager.ClearMessageQueue();
+                    UpdateUI();
                     input = null;
                 }
             }
@@ -170,8 +274,7 @@ namespace TextRPGing.Scene
                     break;
                 default:
                     SendToUIManager("그런 직업은 없소이다.\n");
-                    GameManager.UIManager.DisplayUpdate();
-                    GameManager.UIManager.ClearMessageQueue();
+                    UpdateUI();
                     break;
             }
             return job;
@@ -186,6 +289,12 @@ namespace TextRPGing.Scene
         {
             MessageToUI messageToUI = new MessageToUI(Define.GameEnum.eSceneType.Town, message);
             GameManager.UIManager.PutToOutQueue(messageToUI);
+        }
+
+        private void UpdateUI()
+        {
+            GameManager.UIManager.DisplayUpdate();
+            GameManager.UIManager.ClearMessageQueue();
         }
     }
 
