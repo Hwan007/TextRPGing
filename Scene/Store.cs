@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using TextRPGing.Define;
 using TextRPGing.Define.Interface;
@@ -41,7 +42,7 @@ namespace TextRPGing.Scene
             {
                 if (input >= routes.Length + 1)
                 {
-                    if (mState == eState.Buy)
+                    if (mState == eState.Buy && Character.Player.Inven.Gold >= Items[input - routes.Length - 1].Price)
                     {
                         var item = Items[input - routes.Length - 1];
                         switch (item.Type)
@@ -57,6 +58,17 @@ namespace TextRPGing.Scene
                         }
                         
                         Character.Player.Inven.Gold -= item.Price;
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine($"{Items[input - routes.Length - 1].Name} 아이템을 구매했습니다.");
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Thread.Sleep( 1500 );
+                    }
+                    else if (mState == eState.Buy && Character.Player.Inven.Gold < Items[input - routes.Length - 1].Price)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Magenta;
+                        Console.WriteLine($"돈이 부족합니다...현재 보유 골드 : {Character.Player.Inven.Gold} G");
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Thread.Sleep(1500);
                     }
                     else
                     {
@@ -219,9 +231,9 @@ namespace TextRPGing.Scene
                 tempStr.Clear();
                 // 번호
                 if (i > 9)
-                    sb.Append($"[{i}]");
+                    sb.Append($"[{i+1}]");
                 else
-                    sb.Append($"[{i}] ");
+                    sb.Append($"[{i+1}] ");
                 // 이름
                 tempStr.Append(itmes[index].Name);
                 tempStr.Append(Fit(tempStr.ToString(), 16));
