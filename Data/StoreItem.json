@@ -1,1 +1,74 @@
-[{"Id":1,"Name":"숙련자의 검","Type":2,"Description":"숙련자가 사용하는 검","Price":300,"ATK":0,"DEF":0,"CRT":2.5,"AVD":0.0,"Heal":0},{"Id":1,"Name":"고급검","Type":2,"Description":"부티나는 검","Price":500,"ATK":0,"DEF":0,"CRT":3.5,"AVD":0.0,"Heal":0},{"Id":1,"Name":"크리스탈 검","Type":2,"Description":"크리스탈로 만든 검","Price":700,"ATK":0,"DEF":0,"CRT":4.5,"AVD":0.0,"Heal":0},{"Id":1,"Name":"숙련자의 갑옷","Type":1,"Description":"숙련자가 사용하는 갑옷","Price":400,"ATK":0,"DEF":5,"CRT":0.0,"AVD":0.0,"Heal":0},{"Id":1,"Name":"숙련자의 부츠","Type":1,"Description":"숙련자가 사용하는 부츠","Price":300,"ATK":0,"DEF":2,"CRT":0.0,"AVD":1.0,"Heal":0},{"Id":1,"Name":"용 비늘 갑옷","Type":1,"Description":"용의 비늘로 만든 갑옷","Price":800,"ATK":0,"DEF":10,"CRT":0.0,"AVD":4.0,"Heal":0}]
+[
+  {
+    "ATK": 0,
+    "AVD": 0.0,
+    "CRT": 2.5,
+    "DEF": 0,
+    "Description": "숙련자가 사용하는 검",
+    "Heal": 0,
+    "Id": 1,
+    "Name": "숙련자의 검",
+    "Price": 300,
+    "Type": 2
+  },
+  {
+    "Id": 1,
+    "Name": "고급검",
+    "Type": 2,
+    "Description": "부티나는 검",
+    "Price": 500,
+    "ATK": 0,
+    "DEF": 0,
+    "CRT": 3.5,
+    "AVD": 0.0,
+    "Heal": 0
+  },
+  {
+    "Id": 1,
+    "Name": "크리스탈 검",
+    "Type": 2,
+    "Description": "크리스탈로 만든 검",
+    "Price": 700,
+    "ATK": 0,
+    "DEF": 0,
+    "CRT": 4.5,
+    "AVD": 0.0,
+    "Heal": 0
+  },
+  {
+    "Id": 1,
+    "Name": "숙련자의 갑옷",
+    "Type": 1,
+    "Description": "숙련자가 사용하는 갑옷",
+    "Price": 400,
+    "ATK": 0,
+    "DEF": 5,
+    "CRT": 0.0,
+    "AVD": 0.0,
+    "Heal": 0
+  },
+  {
+    "Id": 1,
+    "Name": "숙련자의 부츠",
+    "Type": 1,
+    "Description": "숙련자가 사용하는 부츠",
+    "Price": 300,
+    "ATK": 0,
+    "DEF": 2,
+    "CRT": 0.0,
+    "AVD": 1.0,
+    "Heal": 0
+  },
+  {
+    "Id": 1,
+    "Name": "용 비늘 갑옷",
+    "Type": 1,
+    "Description": "용의 비늘로 만든 갑옷",
+    "Price": 800,
+    "ATK": 0,
+    "DEF": 10,
+    "CRT": 0.0,
+    "AVD": 4.0,
+    "Heal": 0
+  }
+]

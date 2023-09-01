@@ -56,12 +56,12 @@ namespace TextRPGing.Scene
                                 Character.Player.Inven.AddItem(armorToAdd);
                                 break;
                         }
-                        
+
                         Character.Player.Inven.Gold -= item.Price;
                         Console.ForegroundColor = ConsoleColor.Green;
                         Console.WriteLine($"{Items[input - routes.Length - 1].Name} 아이템을 구매했습니다.");
                         Console.ForegroundColor = ConsoleColor.White;
-                        Thread.Sleep( 1500 );
+                        Thread.Sleep(1500);
                     }
                     else if (mState == eState.Buy && Character.Player.Inven.Gold < Items[input - routes.Length - 1].Price)
                     {
@@ -125,7 +125,7 @@ namespace TextRPGing.Scene
             // 행선지 출력
             // 0 나가기
             // 1 판매
-            for (int i = 0; i < routes.Length+1; ++i)
+            for (int i = 0; i < routes.Length + 1; ++i)
             {
                 sb.Append($"{i}. ");
                 if (i == 1)
@@ -163,6 +163,8 @@ namespace TextRPGing.Scene
                 }
             }
 
+            // 원하는 행동을 입력해주세요.
+            sb.Append("\n원하는 행동을 입력해주세요.\n>>");
             MessageAndUpdate(sb.ToString());
         }
 
@@ -225,9 +227,9 @@ namespace TextRPGing.Scene
             StringBuilder sb = new StringBuilder();
             StringBuilder tempStr = new StringBuilder();
             var routes = GameManager.SceneManager.GetEnableScene(Define.GameEnum.eSceneType.Store);
-            for (int i = routes.Length+1; i < items.Count + routes.Length+1; ++i)
+            for (int i = routes.Length + 1; i < items.Count + routes.Length + 1; ++i)
             {
-                int index = i - routes.Length-1;
+                int index = i - routes.Length - 1;
                 tempStr.Clear();
                 // 번호
                 if (i > 9)
@@ -246,7 +248,7 @@ namespace TextRPGing.Scene
                 }
                 else if (items[index].Type == GameEnum.eItemType.Armor)
                 {
-                    
+
                     tempStr.Append("방어력 +" + items[index].DEF);
                 }
                 else if (items[index].Type == GameEnum.eItemType.Potion)
